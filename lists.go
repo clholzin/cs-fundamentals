@@ -1,17 +1,18 @@
 package list
 
+// Interface Lister
 type Lister interface {
 	Push(value interface{}) bool
 	Pop() bool
 	Shift() bool
 	FindIndex(value interface{}) (interface{}, bool)
-	Value(index interface{}) (interface{}, bool)
-	Count() interface{}
-	Delete(index interface{}) (interface{}, bool)
+	Value(index int) (interface{}, bool)
+	Count() int
+	DeleteAt(index int) (interface{}, bool)
 	Iterate() []interface{}
 }
 
-type IntList struct {
+type List struct {
 	data []interface{}
 }
 
@@ -50,7 +51,7 @@ func (n *List) Pop() bool {
 	return false
 }
 
-func (n *List) Value(index interface{}) (interface{}, bool) {
+func (n *List) Value(index int) (interface{}, bool) {
 	if index >= n.Count() {
 		return 0, false
 	}
@@ -71,7 +72,7 @@ func (n *List) FindIndex(value interface{}) (interface{}, bool) {
 	return 0, false
 }
 
-func (n *List) Delete(index interface{}) (interface{}, bool) {
+func (n *List) DeleteAt(index int) (interface{}, bool) {
 	if index >= n.Count() {
 		return 0, false
 	}
@@ -90,6 +91,6 @@ func (n *List) Delete(index interface{}) (interface{}, bool) {
 	return val, true
 }
 
-func (n *List) Count() interface{} {
+func (n *List) Count() int {
 	return len(n.data)
 }

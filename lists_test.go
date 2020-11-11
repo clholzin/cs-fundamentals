@@ -3,7 +3,7 @@ package list
 import "testing"
 
 func TestIntList(t *testing.T) {
-	node := NewIntList()
+	node := NewList()
 	if node.Count() != 0 {
 		t.Error("node.Count() != 0")
 	}
@@ -30,10 +30,18 @@ func TestIntList(t *testing.T) {
 		t.Error("node.Count() != 1")
 	}
 
-	for _, val := range []int{3, 22, 14, 55, 223} {
+	for _, val := range []int{1, 3, 22, 14, 55, 223} {
 		if !node.Push(val) {
 			t.Errorf("!node.Push(%d)\n", val)
 		}
+	}
+
+	if node.Count() != 7 {
+		t.Error("node.Count() != 7")
+	}
+
+	if !node.Shift() {
+		t.Error("!node.Pop()")
 	}
 
 	if node.Count() != 6 {
@@ -41,7 +49,7 @@ func TestIntList(t *testing.T) {
 	}
 
 	if index, ok := node.FindIndex(22); ok {
-		if val, ok := node.Delete(index); !ok {
+		if val, ok := node.DeleteAt(index.(int)); !ok {
 			t.Errorf("!node.Delete(%d) : %d \n", index, val)
 		}
 	} else {
@@ -56,7 +64,7 @@ func TestIntList(t *testing.T) {
 		}
 		if value, ok := node.Value(count - 1); ok {
 			if index, ok := node.FindIndex(value); ok {
-				if val, ok := node.Delete(index); !ok {
+				if val, ok := node.DeleteAt(index.(int)); !ok {
 					t.Errorf("!node.Delete(%d) : %d \n", index, val)
 				}
 
