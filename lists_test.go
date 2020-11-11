@@ -2,7 +2,7 @@ package list
 
 import "testing"
 
-func TestIntList(t *testing.T) {
+func TestList(t *testing.T) {
 	node := NewList()
 	if node.Count() != 0 {
 		t.Error("node.Count() != 0")
