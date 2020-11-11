@@ -41,7 +41,7 @@ func TestIntList(t *testing.T) {
 	}
 
 	if !node.Shift() {
-		t.Error("!node.Pop()")
+		t.Error("!node.Shift()")
 	}
 
 	if node.Count() != 6 {
