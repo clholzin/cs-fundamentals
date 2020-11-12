@@ -1,26 +1,28 @@
 package list
 
+type Value interface{}
+
 // Interface Lister
 type Lister interface {
-	Push(value interface{}) bool
+	Push(value Value) bool
 	Pop() bool
 	Shift() bool
-	FindIndex(value interface{}) (interface{}, bool)
-	Value(index int) (interface{}, bool)
+	FindIndex(value Value) (Value, bool)
+	Value(index int) (Value, bool)
 	Count() int
-	DeleteAt(index int) (interface{}, bool)
-	Iterate() []interface{}
+	DeleteAt(index int) (Value, bool)
+	Iterate() []Value
 }
 
 type List struct {
-	data []interface{}
+	data []Value
 }
 
 func NewList() Lister {
-	return &List{data: make([]interface{}, 0)}
+	return &List{data: make([]Value, 0)}
 }
 
-func (n *List) Push(value interface{}) bool {
+func (n *List) Push(value Value) bool {
 	count := n.Count()
 	n.data = append(n.data, value)
 	if count < n.Count() {
@@ -51,7 +53,7 @@ func (n *List) Pop() bool {
 	return false
 }
 
-func (n *List) Value(index int) (interface{}, bool) {
+func (n *List) Value(index int) (Value, bool) {
 	if index >= n.Count() {
 		return 0, false
 	}
@@ -59,11 +61,11 @@ func (n *List) Value(index int) (interface{}, bool) {
 	return n.data[index], true
 }
 
-func (n *List) Iterate() []interface{} {
+func (n *List) Iterate() []Value {
 	return n.data[:]
 }
 
-func (n *List) FindIndex(value interface{}) (interface{}, bool) {
+func (n *List) FindIndex(value Value) (Value, bool) {
 	for i := 0; i < n.Count(); i++ {
 		if value == n.data[i] {
 			return i, true
@@ -72,7 +74,7 @@ func (n *List) FindIndex(value interface{}) (interface{}, bool) {
 	return 0, false
 }
 
-func (n *List) DeleteAt(index int) (interface{}, bool) {
+func (n *List) DeleteAt(index int) (Value, bool) {
 	if index >= n.Count() {
 		return 0, false
 	}

@@ -83,3 +83,47 @@ func TestList(t *testing.T) {
 		t.Errorf("node.Count() != 0 \n %v", node.Iterate())
 	}
 }
+
+func TestDeleteValue(t *testing.T) {
+	node := NewList()
+	if node.Count() != 0 {
+		t.Error("node.Count() != 0")
+	}
+	for _, val := range []int{1, 3, 22, 14, 55, 223} {
+		if !node.Push(val) {
+			t.Errorf("!node.Push(%d)\n", val)
+		}
+	}
+
+	if index, ok := node.FindIndex(55); ok {
+		if val, ok := node.DeleteAt(index.(int)); !ok {
+			t.Errorf("!node.Delete(%d) : %d \n", index, val)
+		}
+	} else {
+		t.Error("index,ok := node.FindIndex(55); !ok")
+	}
+
+	if index, ok := node.FindIndex(14); ok {
+		if val, ok := node.DeleteAt(index.(int)); !ok {
+			t.Errorf("!node.Delete(%d) : %d \n", index, val)
+		}
+	} else {
+		t.Error("index,ok := node.FindIndex(14); !ok")
+	}
+
+	if index, ok := node.FindIndex(1); ok {
+		if val, ok := node.DeleteAt(index.(int)); !ok {
+			t.Errorf("!node.Delete(%d) : %d \n", index, val)
+		}
+	} else {
+		t.Error("index,ok := node.FindIndex(1); !ok")
+	}
+
+	if index, ok := node.FindIndex(223); ok {
+		if val, ok := node.DeleteAt(index.(int)); !ok {
+			t.Errorf("!node.Delete(%d) : %d \n", index, val)
+		}
+	} else {
+		t.Error("index,ok := node.FindIndex(223); !ok")
+	}
+}
