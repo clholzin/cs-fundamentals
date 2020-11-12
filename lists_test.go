@@ -1,4 +1,4 @@
-package list
+package fundamentals
 
 import "testing"
 
