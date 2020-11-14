@@ -43,12 +43,18 @@ func (q *Queue) Add(data int) {
 		q.Tail.Next = node
 	}
 	q.Tail = node
+	if q.Head == nil {
+		q.Head = node
+	}
 }
 func (q *Queue) Remove() (int, error) {
 	var data int
 	if q.Head != nil {
 		data = q.Head.Data
 		q.Head = q.Head.Next
+		if q.Head == nil {
+			q.Tail = nil
+		}
 		return data, nil
 	}
 	return data, errors.New("no head")

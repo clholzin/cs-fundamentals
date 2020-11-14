@@ -34,4 +34,23 @@ func TestQueue(t *testing.T) {
 	if !queue.IsEmpty() {
 		t.Errorf("should be empty")
 	}
+
+	_, err = queue.Remove()
+	if err == nil {
+		t.Errorf("Remove failed: %s", err)
+	}
+
+	_, err = queue.Peak()
+	if err == nil {
+		t.Errorf("Failed head != nil")
+	}
+
+	queue.Add(10)
+	val, err = queue.Peak()
+	if err != nil {
+		t.Errorf("Failed see head %s", err)
+	}
+	if val != 10 {
+		t.Errorf("val != 10")
+	}
 }
