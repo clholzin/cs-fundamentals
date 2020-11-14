@@ -57,11 +57,11 @@ func TestTraverseTree(t *testing.T) {
 	if tree.Left != nil {
 		t.Error("tree.Left should be nil")
 	}
-
-	//	          5
-	//				2       7
-	//				  4   6   8
-	//				3
+	expect := `
+             5
+	2       7
+	  4   6   8
+	3`
 
 	add := []int{2, 4, 3, 7, 6, 8}
 
@@ -75,4 +75,5 @@ func TestTraverseTree(t *testing.T) {
 	tree.Traverse()
 	//time.Sleep(800 * time.Millisecond)
 	fmt.Printf("%+v\n", tree)
+	fmt.Println("expect", expect)
 }
