@@ -2,60 +2,50 @@
 computer science fundamentals
 
 # Fundamentals:
-* Binary Tree * recursion
-* Array
-```
-Lister interface {
-
-	Push(value Value) bool
-
-	Pop() bool
-
-	Shift() bool
-
-	FindIndex(value Value) (Value, bool)
-
-	Value(index int) (Value, bool)
-
-	Count() int
-
-	DeleteAt(index int) (Value, bool)
-
-	Iterate() []Value
-
-}
-```
-* Stack
-```
-Stacker interface {
-
-	IsEmpty() bool
-
-	Peak() (int, error)
-
-	Push(data int)
-
-	Pop() (int, error)
-
-}
-```
-
-* Queue
-```
-Queuer interface {
-
-	IsEmpty() bool
-
-	Peak() (int, error)
-
-	Add(data int)
-
-	Remove(data int) (int, error)
-
-}
-```
-* Linked List
 * Heaps
+* Binary Tree  
+  ```go
+  Treer interface {
+  	Search(int) *Tree
+  	Insert(int, *Tree) *Tree
+  	Remove(int) bool
+  	Traverse()
+  }
+  ```
+* Array
+  ```go
+  Lister interface {
+  	Push(Value) bool
+  	Pop() bool
+  	Shift() bool
+  	FindIndex(Value) (Value, bool)
+  	Value(index int) (Value, bool)
+  	Count() int
+  	DeleteAt(index int) (Value, bool)
+  	Iterate() []Value
+  }
+  ```
+* Linked List
+
+  * Stack
+    ```go
+    Stacker interface {
+    	IsEmpty() bool
+    	Peak() (int, error)
+    	Push(data int)
+    	Pop() (int, error)
+    }
+    ```
+
+  * Queue
+    ```go
+    Queuer interface {
+    	IsEmpty() bool
+    	Peak() (int, error)
+    	Add(data int)
+    	Remove(data int) (int, error)
+    }
+    ```
 * Search Algo
 * Hash Table
 * Graphs
