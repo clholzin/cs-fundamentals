@@ -4,6 +4,27 @@ computer science fundamentals
 # Fundamentals:
 * Binary Tree * recursion
 * Array
+```
+Lister interface {
+
+	Push(value Value) bool
+
+	Pop() bool
+
+	Shift() bool
+
+	FindIndex(value Value) (Value, bool)
+
+	Value(index int) (Value, bool)
+
+	Count() int
+
+	DeleteAt(index int) (Value, bool)
+
+	Iterate() []Value
+
+}
+```
 * Stack
 ```
 Stacker interface {

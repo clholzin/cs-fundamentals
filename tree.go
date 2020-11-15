@@ -2,6 +2,13 @@ package fundamentals
 
 import "fmt"
 
+type Treer interface {
+	Search(int) *Tree
+	Insert(int, *Tree) *Tree
+	Remove(int) bool
+	Traverse()
+}
+
 // Tree Node
 type Tree struct {
 	Data   int
@@ -10,7 +17,7 @@ type Tree struct {
 	Right  *Tree
 }
 
-func NewTree(data int) *Tree {
+func NewTree(data int) Treer {
 	return &Tree{Data: data}
 }
 
@@ -27,11 +34,11 @@ func (t *Tree) Search(val int) *Tree {
 }
 
 func (t *Tree) Insert(val int, parent *Tree) *Tree {
-	var p *Tree
+	var node *Tree
 	if t == nil {
-		p = NewTree(val)
-		p.Parent = parent
-		t = p
+		node = &Tree{Data: val}
+		node.Parent = parent
+		t = node
 		if val < parent.Data {
 			parent.Left = t
 		} else {
@@ -41,20 +48,23 @@ func (t *Tree) Insert(val int, parent *Tree) *Tree {
 	}
 
 	if val < t.Data {
-		fmt.Println(val, "left")
+		// fmt.Println(val, "left")
 		return t.Left.Insert(val, t)
 	}
-	fmt.Println(val, "right")
+	// fmt.Println(val, "right")
 	return t.Right.Insert(val, t)
 }
 
-func (t *Tree) Remove(val int, parent *Tree) *Tree {
+func (t *Tree) Remove(val int) bool {
 	found := t.Search(val)
-	found = nil
-	return found
+	if found != nil {
+		found = nil
+		return true
+	}
+	return false
 }
 
-func (t *Tree) Process() {
+func (t *Tree) process() {
 	fmt.Println("-", t.Data)
 }
 
@@ -62,6 +72,6 @@ func (t *Tree) Traverse() {
 	if t != nil {
 		t.Left.Traverse()
 		t.Right.Traverse()
-		t.Process()
+		t.process()
 	}
 }

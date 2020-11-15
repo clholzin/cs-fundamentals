@@ -7,10 +7,10 @@ import (
 
 func TestSearchTree(t *testing.T) {
 
-	tree := NewTree(1)
-	tree.Left = NewTree(0)
+	tree := &Tree{Data: 1}
+	tree.Left = &Tree{Data: 0}
 	tree.Left.Parent = tree
-	tree.Right = NewTree(2)
+	tree.Right = &Tree{Data: 2}
 	tree.Right.Parent = tree
 
 	if tree.Right.Parent != tree {
@@ -32,8 +32,7 @@ func TestSearchTree(t *testing.T) {
 
 func TestInsertTree(t *testing.T) {
 
-	tree := NewTree(1)
-
+	tree := &Tree{Data: 1}
 	if tree.Left != nil {
 		t.Error("tree.Left should be nil")
 	}
@@ -52,8 +51,7 @@ func TestInsertTree(t *testing.T) {
 
 func TestTraverseTree(t *testing.T) {
 
-	tree := NewTree(5)
-
+	tree := &Tree{Data: 5}
 	if tree.Left != nil {
 		t.Error("tree.Left should be nil")
 	}
@@ -73,7 +71,6 @@ func TestTraverseTree(t *testing.T) {
 	}
 
 	tree.Traverse()
-	//time.Sleep(800 * time.Millisecond)
 	fmt.Printf("%+v\n", tree)
 	fmt.Println("expect", expect)
 }
