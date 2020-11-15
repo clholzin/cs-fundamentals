@@ -49,7 +49,8 @@ func TestList(t *testing.T) {
 	}
 
 	if index, ok := node.FindIndex(22); ok {
-		if val, ok := node.DeleteAt(index.(int)); !ok {
+		val, ok := node.DeleteAt(index.(int))
+		if !ok || val != 22 {
 			t.Errorf("!node.Delete(%d) : %d \n", index, val)
 		}
 	} else {
@@ -120,7 +121,8 @@ func TestDeleteValue(t *testing.T) {
 	}
 
 	if index, ok := node.FindIndex(223); ok {
-		if val, ok := node.DeleteAt(index.(int)); !ok {
+		val, ok := node.DeleteAt(index.(int))
+		if !ok || val != 223 {
 			t.Errorf("!node.Delete(%d) : %d \n", index, val)
 		}
 	} else {
