@@ -7,7 +7,7 @@ type MinIntHeap struct {
 }
 
 func (heap *MinIntHeap) Items() []int {
-	return heap.items
+	return heap.items[:]
 }
 
 func (heap *MinIntHeap) GetLeftChildIndex(parentIndex int) int {
@@ -20,14 +20,14 @@ func (heap *MinIntHeap) GetParentIndex(childIndex int) int {
 	return (childIndex - 1) / 2
 }
 
-func (heap *MinIntHeap) HasLeftChild(parentIndex int) bool {
-	return 2*parentIndex + 1
+func (heap *MinIntHeap) HasLeftChild(index int) bool {
+	return heap.GetLeftChildIndex(index) < heap.Size
 }
-func (heap *MinIntHeap) HasRightChild(parentIndex int) bool {
-	return 2*parentIndex + 2
+func (heap *MinIntHeap) HasRightChild(index int) bool {
+	return heap.GetRightChildIndex(index) < heap.Size
 }
-func (heap *MinIntHeap) HasParent(childIndex int) bool {
-	return (childIndex - 1) / 2
+func (heap *MinIntHeap) HasParent(index int) bool {
+	return heap.GetParentIndex(index) >= 0
 }
 
 func (heap *MinIntHeap) LeftChild(index int) int {
@@ -37,7 +37,7 @@ func (heap *MinIntHeap) RightChild(index int) int {
 	return heap.items[heap.GetRightChildIndex(index)]
 }
 func (heap *MinIntHeap) Parent(index int) int {
-	return heap.items[heap.GetParent(index)]
+	return heap.items[heap.GetParentIndex(index)]
 }
 
 func (heap *MinIntHeap) swap(indexOne, indexTwo int) {
@@ -98,6 +98,7 @@ func (heap *MinIntHeap) HeapifyDown() {
 		index = smallrChildIndex
 	}
 }
+
 func (heap *MinIntHeap) HeapifyUp() {
 	index := heap.Size - 1
 	predicate := (heap.HasParent(index) && heap.Parent(index) > items[index])
