@@ -63,7 +63,7 @@ func (heap *MinIntHeap) Peak() (int, error) {
 	if heap.IsEmpty() {
 		return 0, errors.New("empty")
 	}
-	return heap.items[0], nil
+	return heap.items[heap.Cap], nil
 }
 
 func (heap *MinIntHeap) Poll() (int, error) {
@@ -74,6 +74,7 @@ func (heap *MinIntHeap) Poll() (int, error) {
 	heap.items[0] = heap.items[heap.Size-1]
 	heap.Size--
 	heap.heapifyDown()
+	fmt.Println("-", heap.items, heap.Size, heap.Cap)
 	return item, nil
 }
 
@@ -91,17 +92,17 @@ func (heap *MinIntHeap) ensureExtraCapacity() {
 
 func (heap *MinIntHeap) Add(val int) {
 	heap.ensureExtraCapacity()
-	fmt.Println(heap.items, heap.Size, val)
 	heap.items[heap.Size] = val
 	heap.Size++
 	heap.heapifyUp()
+	fmt.Println("+", heap.items, heap.Size, heap.Cap, val)
 }
 
 func (heap *MinIntHeap) heapifyDown() {
 	index := 0
 	for heap.HasLeftChild(index) {
 		smallerChildIndex := heap.GetLeftChildIndex(index)
-		if heap.HasRightChild(index) && heap.RightChild(index) < heap.LeftChild(index) {
+		if heap.HasRightChild(index) && heap.RightChild(index) > heap.LeftChild(index) {
 			smallerChildIndex = heap.GetRightChildIndex(index)
 		}
 		if heap.items[index] < heap.items[smallerChildIndex] {
@@ -114,10 +115,10 @@ func (heap *MinIntHeap) heapifyDown() {
 
 func (heap *MinIntHeap) heapifyUp() {
 	index := heap.Size - 1
-	predicate := (heap.HasParent(index) && heap.Parent(index) > heap.items[index])
+	predicate := heap.HasParent(index) && (heap.Parent(index) < heap.items[index])
 	for predicate {
 		heap.swap(heap.GetParentIndex(index), index)
 		index = heap.GetParentIndex(index)
-		predicate = (heap.HasParent(index) && heap.Parent(index) > heap.items[index])
+		predicate = heap.HasParent(index) && (heap.Parent(index) < heap.items[index])
 	}
 }

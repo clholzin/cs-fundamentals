@@ -17,6 +17,8 @@ func TestMinIntHeap(t *testing.T) {
 		t.Errorf("size is not 7: %v", heap.Values())
 	}
 
+	heap.Poll()
+
 	if val, err := heap.Peak(); err == nil {
 		if val != 10 {
 			t.Errorf("peak value expected 10. was: %d", val)
