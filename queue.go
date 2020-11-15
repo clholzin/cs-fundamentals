@@ -6,7 +6,7 @@ type Queuer interface {
 	IsEmpty() bool
 	Peak() (int, error)
 	Add(data int)
-	Remove(data int) (int, error)
+	Remove() (int, error)
 }
 
 type Queue struct {
@@ -23,7 +23,7 @@ func NewQueueNode(data int) *Node {
 	return &Node{Data: data}
 }
 
-func NewQueue(head *Node) *Queue {
+func NewQueue(head *Node) Queuer {
 	return &Queue{Head: head, Tail: head}
 }
 

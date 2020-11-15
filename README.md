@@ -5,7 +5,34 @@ computer science fundamentals
 * Binary Tree * recursion
 * Array
 * Stack
+```
+Stacker interface {
+
+	IsEmpty() bool
+
+	Peak() (int, error)
+
+	Push(data int)
+
+	Pop() (int, error)
+
+}
+```
+
 * Queue
+```
+Queuer interface {
+
+	IsEmpty() bool
+
+	Peak() (int, error)
+
+	Add(data int)
+
+	Remove(data int) (int, error)
+
+}
+```
 * Linked List
 * Heaps
 * Search Algo
