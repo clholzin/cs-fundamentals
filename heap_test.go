@@ -20,8 +20,8 @@ func TestMinIntHeap(t *testing.T) {
 	heap.Poll()
 
 	if val, err := heap.Peak(); err == nil {
-		if val != 10 {
-			t.Errorf("peak value expected 10. was: %d", val)
+		if val != 14 {
+			t.Errorf("peak value expected 14. was: %d", val)
 		}
 	} else {
 		t.Errorf("peak failed")

@@ -12,7 +12,7 @@ type MinIntHeap struct {
 }
 
 func NewMinIntHeap() *MinIntHeap {
-	return &MinIntHeap{Cap: 1}
+	return &MinIntHeap{Cap: 10}
 }
 
 func (heap *MinIntHeap) Values() []int {
@@ -63,7 +63,7 @@ func (heap *MinIntHeap) Peak() (int, error) {
 	if heap.IsEmpty() {
 		return 0, errors.New("empty")
 	}
-	return heap.items[heap.Cap], nil
+	return heap.items[0], nil
 }
 
 func (heap *MinIntHeap) Poll() (int, error) {
@@ -80,7 +80,7 @@ func (heap *MinIntHeap) Poll() (int, error) {
 
 func (heap *MinIntHeap) ensureExtraCapacity() {
 	if heap.items == nil {
-		heap.items = make([]int, 1)
+		heap.items = make([]int, heap.Cap)
 	}
 	if heap.Size == heap.Cap {
 		temp := heap.items[:]
@@ -115,10 +115,10 @@ func (heap *MinIntHeap) heapifyDown() {
 
 func (heap *MinIntHeap) heapifyUp() {
 	index := heap.Size - 1
-	predicate := heap.HasParent(index) && (heap.Parent(index) < heap.items[index])
+	predicate := heap.HasParent(index) && (heap.Parent(index) > heap.items[index])
 	for predicate {
 		heap.swap(heap.GetParentIndex(index), index)
 		index = heap.GetParentIndex(index)
-		predicate = heap.HasParent(index) && (heap.Parent(index) < heap.items[index])
+		predicate = heap.HasParent(index) && (heap.Parent(index) > heap.items[index])
 	}
 }
