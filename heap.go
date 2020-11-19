@@ -15,7 +15,7 @@ func NewMinIntHeap() *MinIntHeap {
 	return &MinIntHeap{Cap: 10}
 }
 
-func (heap *MinIntHeap) Values() []int {
+func (heap *MinIntHeap) Items() []int {
 	return heap.items[:]
 }
 

@@ -14,7 +14,7 @@ func TestMinIntHeap(t *testing.T) {
 	heap.Add(34)
 
 	if heap.Size != 7 {
-		t.Errorf("size is not 7: %v", heap.Values())
+		t.Errorf("size is not 7: %v", heap.Items())
 	}
 
 	heap.Poll()
