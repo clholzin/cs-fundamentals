@@ -19,10 +19,12 @@ MergeSort(arr[], l,  r)
 
 func MergeSort(data []int) []int {
 
-	if left >= right {
+	if len(data) <= 1 {
 		return data
 	}
 
+	left := 0
+	right := len(data)
 	middle := (left + right) / 2
 
 	fmt.Println(left, middle, right)
@@ -44,21 +46,24 @@ func merge(left, right []int) (result []int) {
 
 	n1 := len(left)
 	n2 := len(right)
+	result = make([]int, n1+n2)
 
-	j := 0
 	i := 0
 
 	fmt.Println("--", n1, n2)
 
 	for len(left) > 0 && len(right) > 0 {
-		if left[0] < right[0] {
-			result = append(result, left[1:])
+		if left[0] <= right[0] {
+			result[i] = left[0]
+			left = left[1:]
 		} else {
-			result = append(result, right[1:])
+			result[i] = right[0]
+			right = right[1:]
 		}
 		i++
 	}
 
+	fmt.Println(left, right, result)
 	for j := 0; j < len(left); j++ {
 		result[i] = left[j]
 		i++
@@ -68,5 +73,5 @@ func merge(left, right []int) (result []int) {
 		i++
 	}
 
-	return data
+	return result
 }
