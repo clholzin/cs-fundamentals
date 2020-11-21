@@ -17,7 +17,7 @@ MergeSort(arr[], l,  r)
              Call merge(arr, l, m, r)
 */
 
-func MergeSort(data []int, left, right int) []int {
+func MergeSort(data []int) []int {
 
 	if left >= right {
 		return data
@@ -27,55 +27,45 @@ func MergeSort(data []int, left, right int) []int {
 
 	fmt.Println(left, middle, right)
 
-	fmt.Println("left", data[left:middle])
-	fmt.Println("right", data[middle:right])
+	leftdata := data[left:middle]
+	rightdata := data[middle:right]
 
-	data = MergeSort(data, left, middle)
+	fmt.Println("left", leftdata)
+	fmt.Println("right", rightdata)
 
-	data = MergeSort(data, middle+1, right)
-
-	return merge(data, left, middle, right)
+	return merge(MergeSort(leftdata), MergeSort(rightdata))
 }
 
 // Merges two subarrays of arr[].
 // First subarray is arr[l..m]
 // Second subarray is arr[m+1..r]
 
-func merge(data []int, l, m, r int) []int {
+func merge(left, right []int) (result []int) {
 
-	n1 := m - l
-	n2 := r - m
+	n1 := len(left)
+	n2 := len(right)
 
-	left := data[l:m]
-	right := data[m:r]
-
-	i := 0
 	j := 0
-	k := l
+	i := 0
 
-	fmt.Println("--", n1, n2, data)
-	for i < n1 && j < n2 {
-		if left[i] <= right[j] {
-			data[k] = left[i]
-			i++
+	fmt.Println("--", n1, n2)
+
+	for len(left) > 0 && len(right) > 0 {
+		if left[0] < right[0] {
+			result = append(result, left[1:])
 		} else {
-			data[k] = right[j]
-			j++
+			result = append(result, right[1:])
 		}
-		k++
-	}
-	fmt.Println("-*", i, n1, j, n2, data)
-
-	for i < n1 {
-		data[k] = left[i]
 		i++
-		k++
 	}
 
-	for j < n2 {
-		data[k] = right[j]
-		j++
-		k++
+	for j := 0; j < len(left); j++ {
+		result[i] = left[j]
+		i++
+	}
+	for j := 0; j < len(right); j++ {
+		result[i] = right[j]
+		i++
 	}
 
 	return data
