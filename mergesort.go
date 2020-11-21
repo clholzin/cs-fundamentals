@@ -38,10 +38,6 @@ func MergeSort(data []int) []int {
 	return merge(MergeSort(leftdata), MergeSort(rightdata))
 }
 
-// Merges two subarrays of arr[].
-// First subarray is arr[l..m]
-// Second subarray is arr[m+1..r]
-
 func merge(left, right []int) (result []int) {
 
 	n1 := len(left)
