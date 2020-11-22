@@ -45,8 +45,7 @@ func merge(left, right []int) (result []int) {
 	result = make([]int, n1+n2)
 
 	i := 0
-
-	fmt.Println("--", n1, n2)
+	fmt.Println("before", left, right, result)
 
 	for len(left) > 0 && len(right) > 0 {
 		if left[0] <= right[0] {
@@ -59,7 +58,8 @@ func merge(left, right []int) (result []int) {
 		i++
 	}
 
-	fmt.Println(left, right, result)
+	fmt.Println("after", left, right, result)
+
 	for j := 0; j < len(left); j++ {
 		result[i] = left[j]
 		i++
