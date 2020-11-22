@@ -46,19 +46,22 @@ computer science fundamentals
     }
     ```
 * Search Algo
-  * Binary Search
-  * Depth-First Search
-  * Bredth-First Search
-* Hash Min Table
-   ```
-   type MinIntHeap struct {
-   	 Cap   int
-   	 Size  int
-   	 items []int
-    }
-   ```
-* Heaps 
-* Graphs
+  * TODO: Binary Search
+  * TODO: Depth-First Search
+  * TODO: Bredth-First Search
+
+* Heap
+  * TODO: Heap Max Table
+  * Heap Min Table
+     ```
+     type MinIntHeap struct {
+     	 Cap   int
+     	 Size  int
+     	 items []int
+      }
+     ```
+* TODO: Hash
+* TODO: Graphs
 * Sorting
     * MergeSort(arr[], l,  r)
       ```If r > l
@@ -71,9 +74,9 @@ computer science fundamentals
          4. Merge the two halves sorted in step 2 and 3:
                  Call merge(arr, l, m, r)
       ```
-    * heapSort
-    * quickSort
-    * Distribution Sort -> selectionSort
+    * TODO: heapSort
+    * TODO: quickSort
+    * TODO: Distribution Sort -> selectionSort
 
 # Exercises:
 
