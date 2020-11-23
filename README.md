@@ -25,7 +25,6 @@ computer science fundamentals
   }
   ```
 * Linked List
-
   * Stack
     ```go
     Stacker interface {
@@ -53,7 +52,7 @@ computer science fundamentals
 * Heap
   * TODO: Heap Max Table
   * Heap Min Table
-     ```
+     ```go
      type MinIntHeap struct {
      	 Cap   int
      	 Size  int
@@ -61,7 +60,11 @@ computer science fundamentals
       }
      ```
 * TODO: Hash
-* TODO: Graphs
+* Graphs
+  * adjacency lists
+    * Depth First Search
+    * Breadth First Search
+  * TODO: adjacency matrices
 * Sorting
     * MergeSort(arr[], l,  r)
       ```If r > l
