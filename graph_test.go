@@ -6,12 +6,14 @@ func TestGraph(t *testing.T) {
 
 	graph := NewGraph(false)
 
-	if len(graph.Edges) != (MaxVerts + 1) {
+	if len(graph.Edges) != (MAXVERTS + 1) {
 		t.Fail()
 	}
-	if len(graph.Degree) != (MaxVerts + 1) {
+	if len(graph.Degree) != (MAXVERTS + 1) {
 		t.Fail()
 	}
 
-	graph.Fill("./graph.txt")
+	graph.FillGraph("./graph.txt")
+
+	t.Log(graph.String())
 }

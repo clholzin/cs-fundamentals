@@ -2,6 +2,7 @@ package fundamentals
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"os"
 	"strconv"
@@ -49,6 +50,10 @@ func NewGraph(directed bool) *Graph {
 
 func (g *Graph) FillGraph(filepath string) {
 	file, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	read := bufio.NewScanner(file)
 
 	for read.Scan() {
@@ -74,6 +79,7 @@ func (g *Graph) FillGraph(filepath string) {
 		}
 
 	}
+	fmt.Println("Filled graph complete")
 }
 
 func (g *Graph) Insert(x, y int, directed bool) {
@@ -101,9 +107,8 @@ func (g *Graph) setup_search() (processed, discovered []bool, parents []int) {
 	return processed, discovered, parents
 }
 
-func (g *Graph) BFS(start int) *Edgenode {
+func (g *Graph) BFS(start int) {
 
-	var found *Edgenode
 	processed, discovered, parents := g.setup_search()
 	queue := NewQueue(NewQueueNode(start))
 	var current *Edgenode
@@ -150,13 +155,14 @@ func (g *Graph) process_edge(x, y int) {
 
 func (g *Graph) String() string {
 	buf := make([]byte, 0)
-	buffer := NewBuffer(buf)
+	buffer := bytes.NewBuffer(buf)
 	var current *Edgenode
 	buffer.WriteString(fmt.Sprintf("Verticies: %d\n", g.NVertices))
-	for i := 0; i < g.NVertecies; i++ {
+	for i := 0; i < g.NVertices; i++ {
 		current = g.Edges[i]
 		for current != nil {
 			buffer.WriteString(fmt.Sprintf("Vert: %d Edge: %d\n", i, current.Y))
+			current = current.Next
 		}
 	}
 	return buffer.String()
