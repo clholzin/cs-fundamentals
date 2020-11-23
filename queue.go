@@ -37,6 +37,12 @@ func (q *Queue) Peak() (int, error) {
 	return 0, errors.New("no head")
 
 }
+func (q *Queue) Enqueue(data int) {
+	q.Add(data)
+}
+func (q *Queue) Dequeue() (int, error) {
+	return q.Remove()
+}
 func (q *Queue) Add(data int) {
 	node := NewQueueNode(data)
 	if q.Tail != nil {

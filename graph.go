@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 /*
@@ -55,21 +56,27 @@ func (g *Graph) FillGraph(filepath string) {
 			fmt.Printf("failed to read graph with error: %v", err)
 			break
 		}
-		data := strings.Sprlit(read.Text(), ",")
+		data := strings.Split(read.Text(), ",")
 		if len(data) == 1 {
-			g.NVertices = strconv.Itoa(data[0])
+			vert, err := strconv.Atoi(data[0])
+			must(err)
+			g.NVertices = vert
 		}
 
 		if len(data) == 2 {
-			x := strconv.Itoa(data[0])
-			y := strconv.Itoa(data[1])
+			vert, err := strconv.Atoi(data[0])
+			must(err)
+			x := vert
+			edge, err := strconv.Atoi(data[1])
+			must(err)
+			y := edge
 			g.Insert(x, y, g.Directed)
 		}
 
 	}
 }
 
-func (g *Graph) Insert(x, y int, directed bool) (out []byte) {
+func (g *Graph) Insert(x, y int, directed bool) {
 	next := &Edgenode{Y: y}
 	next.Next = g.Edges[x]
 	g.Edges[x] = next
@@ -84,12 +91,12 @@ func (g *Graph) Insert(x, y int, directed bool) (out []byte) {
 
 func (g *Graph) setup_search() (processed, discovered []bool, parents []int) {
 
-	parents = make([]int, len(g.NVertices))
-	processed = make([]bool, len(g.NVertices))
-	processed = make([]bool, len(g.NVertices))
+	parents = make([]int, g.NVertices)
+	processed = make([]bool, g.NVertices)
+	discovered = make([]bool, g.NVertices)
 
-	for i := 0; i < len(g.NVertices); i++ {
-		parents[i], process[i], discovered[i] = -1, false, false
+	for i := 0; i < g.NVertices; i++ {
+		parents[i], processed[i], discovered[i] = -1, false, false
 	}
 	return processed, discovered, parents
 }
@@ -105,23 +112,27 @@ func (g *Graph) BFS(start int) *Edgenode {
 	}
 
 	for queue.IsEmpty() != false {
-		v := queue.Peak()
-		process_vertex_early(v)
+		v, err := queue.Remove()
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		g.process_vertex_early(v)
 		processed[v] = true
 		current = g.Edges[v]
 		for current != nil {
 			y := current.Y
-			if processed[y] == false || g.directed {
-				process_edge(v, y)
+			if processed[y] == false || g.Directed {
+				g.process_edge(v, y)
 			}
 			if discovered[y] == false {
 				queue.Add(y)
-				discovered = true
-				parent[y] = v
+				discovered[y] = true
+				parents[y] = v
 			}
-			current = current.next
+			current = current.Next
 		}
-		process_vertix_late(v)
+		g.process_vertex_late(v)
 	}
 
 }
@@ -149,4 +160,10 @@ func (g *Graph) String() string {
 		}
 	}
 	return buffer.String()
+}
+
+func must(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
