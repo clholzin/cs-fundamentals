@@ -7,6 +7,8 @@ package fundamentals
 //ckilbkd
 //nfpdmpi
 //anviaj
+
+// https://leetcode.com/explore/interview/card/facebook/5/array-and-strings/3008/
 func LengthOfLongestSubstring(s string) int {
 	if len(s) == 0 {
 		return int(0)

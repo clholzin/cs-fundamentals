@@ -1,6 +1,7 @@
 package fundamentals
 
 /**
+ * https://leetcode.com/explore/interview/card/facebook/6/linked-list/301/
  * Definition for singly-linked list.
  * type ListNode struct {
  *     Val int
