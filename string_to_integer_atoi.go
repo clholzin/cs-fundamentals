@@ -1,5 +1,7 @@
 package fundamentals
 
+//https://leetcode.com/problems/string-to-integer-atoi/
+
 const IntMax int = int(2147483647)
 const MaxNext int = int(IntMax % 10)
 
