@@ -8,7 +8,7 @@ func TestBubble(t *testing.T) {
 	result := Bubble(data)
 	for ind, val := range result {
 		if val != expected[ind] {
-			t.Log("failed to match %d = %d", val, expected[ind])
+			t.Logf("failed to match %d = %d\n", val, expected[ind])
 			t.Fail()
 		}
 	}
