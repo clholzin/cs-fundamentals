@@ -8,6 +8,12 @@ package fundamentals
  *     Next *ListNode
  * }
  */
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	temp := &ListNode{}
 	if l1 == nil && l2 == nil {
