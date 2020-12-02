@@ -30,6 +30,7 @@ func NewQueue(head *Node) Queuer {
 func (q *Queue) IsEmpty() bool {
 	return q.Head == nil
 }
+
 func (q *Queue) Peak() (int, error) {
 	if !q.IsEmpty() {
 		return q.Head.Data, nil
@@ -37,12 +38,15 @@ func (q *Queue) Peak() (int, error) {
 	return 0, errors.New("no head")
 
 }
+
 func (q *Queue) Enqueue(data int) {
 	q.Add(data)
 }
+
 func (q *Queue) Dequeue() (int, error) {
 	return q.Remove()
 }
+
 func (q *Queue) Add(data int) {
 	node := NewQueueNode(data)
 	if q.Tail != nil {
@@ -53,6 +57,7 @@ func (q *Queue) Add(data int) {
 		q.Head = node
 	}
 }
+
 func (q *Queue) Remove() (int, error) {
 	var data int
 	if q.Head != nil {
