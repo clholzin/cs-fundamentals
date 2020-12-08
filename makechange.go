@@ -1,5 +1,26 @@
 package fundamentals
 
+/* example scope:
+amount: 5
+coins:  [1,2,5]
+
+// call stack
+
+money:5 coin:5 index:2 ways: 1
+money:3 coin:5 index:2 ways: 0
+money:1 coin:5 index:2 ways: 0
+money:5 coin:2 index:1 ways: 1
+money:4 coin:5 index:2 ways: 0
+money:2 coin:5 index:2 ways: 0
+money:4 coin:2 index:1 ways: 1
+money:3 coin:2 index:1 ways: 0
+money:2 coin:2 index:1 ways: 1
+money:1 coin:2 index:1 ways: 0
+money:5 coin:1 index:0 ways: 4
+
+
+*/
+
 func change(amount int, coins []int) int {
 	memo := make(map[string]int)
 	return changeComp(amount, coins, 0, memo)
