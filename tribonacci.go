@@ -25,17 +25,4 @@ func tribonaccimemo(n int, memo map[int]int) int {
 		}
 	}
 	return t
-	/*  if v, ok := memo[n-1]; ok {
-	        t2 = v
-	    }else{
-	        val := tribonacci(n-1)
-	        memo[n-1] = val
-	    }
-	    if v, ok := memo[n-2]; ok {
-	        t3 = v
-	    }
-	    if v, ok := memo[n-3]; ok {
-	        t4 = v
-	    }
-	    return  tribonacci(n-1) + tribonacci(n-2) + tribonacci(n-3);*/
 }

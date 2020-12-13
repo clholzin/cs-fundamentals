@@ -69,8 +69,8 @@ for i:=startrow;i>len(data);i++ {
 {1, 1, 1, 1}
 */
 func start() {
-	c := -paths(data, 0, 1)    //right
-	down := -paths(data, 1, 0) //down
+	c := paths(data, 0, 1)    //right
+	down := paths(data, 1, 0) //down
 }
 
 func paths(data [][]int, currow, currcol int) int {
