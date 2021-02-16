@@ -68,6 +68,8 @@ for i:=startrow;i>len(data);i++ {
 {0, 1, 0, 0}
 {1, 1, 1, 1}
 */
+
+/*
 func start() {
 	c := paths(data, 0, 1)    //right
 	down := paths(data, 1, 0) //down
@@ -88,3 +90,4 @@ func min(a, b int) {
 	}
 	return b
 }
+*/

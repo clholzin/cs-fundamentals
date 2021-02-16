@@ -1,5 +1,13 @@
 package fundamentals
 
+// time complexity: n + m
+// n for the words loop and add m for recursivly
+// adding each next word character to the ourput index
+
+// space: linear space used as the output will
+// grow to as worst larger than the input list of words
+// but not in length but size of the strings concatenated
+
 func wraplines(words []string, maxlen int) (out []string) {
 
 	var currow int
