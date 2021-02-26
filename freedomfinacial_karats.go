@@ -1,7 +1,13 @@
 package fundamentals
 
+import (
+	"fmt"
+)
+
 /*
-Suppose we have some input data describing a graph of relationships between parents and children over multiple generations. The data is formatted as a list of (parent, child) pairs, where each individual is assigned a unique positive integer identifier.
+Suppose we have some input data describing a graph of relationships between parents and children over
+multiple generations. The data is formatted as a list of (parent, child) pairs,
+where each individual is assigned a unique positive integer identifier.
 
 For example, in this diagram, 6 and 8 have common ancestors of 4 and 14.
 
@@ -21,7 +27,8 @@ parentChildPairs1 = [
     (12, 9),(15, 13)
 ]
 
-Write a function that takes the graph, as well as two of the individuals in our dataset, as its inputs and returns true if and only if they share at least one ancestor.
+Write a function that takes the graph, as well as two of the individuals in our dataset,
+as its inputs and returns true if and only if they share at least one ancestor.
 
 Sample input and output:
 
@@ -61,10 +68,8 @@ n: number of pairs in the input
 
 */
 
-import "fmt"
-
-func main() {
-	parentChildPairs1 := [][]int{
+var (
+	parentChildPairs1 [][]int = [][]int{
 		[]int{1, 3},
 		[]int{2, 3},
 		[]int{3, 6},
@@ -80,7 +85,7 @@ func main() {
 		[]int{15, 13},
 	}
 
-	parentChildPairs2 := [][]int{
+	parentChildPairs2 [][]int = [][]int{
 		[]int{1, 3},
 		[]int{11, 10},
 		[]int{11, 12},
@@ -92,7 +97,22 @@ func main() {
 		[]int{5, 7},
 		[]int{7, 8},
 	}
+)
 
+func main() {
+
+	fmt.Println(hasCommonAncestor(parentChildPairs1, 3, 8))
+
+}
+
+func hasCommonAncestor(pairs [][]int, pair1, pair2 int) bool {
+
+	getByChild := make(map[int]int)
+	getByParent := make(map[int]int)
+
+	for _, pair := range pairs {
+
+	}
 }
 
 /*
