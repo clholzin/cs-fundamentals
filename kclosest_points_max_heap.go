@@ -47,7 +47,7 @@ func (h *heap) max() int {
 	}
 }
 
-func kClosest(points [][]int, K int) [][]int {
+func kClosestMaxHeap(points [][]int, K int) [][]int {
 	h := heap{K, 0, []*node{}}
 
 	for i, p := range points {

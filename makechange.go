@@ -1,5 +1,7 @@
 package fundamentals
 
+import "fmt"
+
 /* example scope:
 amount: 5
 coins:  [1,2,5]

@@ -39,7 +39,7 @@ func MergeSorter(data [][]int) [][]int {
 	leftdata := data[left:middle]
 	rightdata := data[middle:right]
 
-	return mergesortby(MergeSort(leftdata), MergeSort(rightdata))
+	return mergesortby(MergeSorter(leftdata), MergeSorter(rightdata))
 }
 
 func mergesortby(left, right [][]int) (result [][]int) {

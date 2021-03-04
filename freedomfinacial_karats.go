@@ -1,12 +1,7 @@
 package fundamentals
 
-import (
-	"fmt"
-)
-
 /*
-Suppose we have some input data describing a graph of relationships between parents and children over
-multiple generations. The data is formatted as a list of (parent, child) pairs,
+Suppose we have some input data describing a graph of relationships between parents and children over multiple generations. The data is formatted as a list of (parent, child) pairs,
 where each individual is assigned a unique positive integer identifier.
 
 For example, in this diagram, 6 and 8 have common ancestors of 4 and 14.
@@ -68,51 +63,27 @@ n: number of pairs in the input
 
 */
 
-var (
-	parentChildPairs1 [][]int = [][]int{
-		[]int{1, 3},
-		[]int{2, 3},
-		[]int{3, 6},
-		[]int{5, 6},
-		[]int{5, 7},
-		[]int{4, 5},
-		[]int{4, 8},
-		[]int{4, 9},
-		[]int{9, 11},
-		[]int{14, 4},
-		[]int{13, 12},
-		[]int{12, 9},
-		[]int{15, 13},
-	}
-
-	parentChildPairs2 [][]int = [][]int{
-		[]int{1, 3},
-		[]int{11, 10},
-		[]int{11, 12},
-		[]int{2, 3},
-		[]int{10, 2},
-		[]int{10, 5},
-		[]int{3, 4},
-		[]int{5, 6},
-		[]int{5, 7},
-		[]int{7, 8},
-	}
-)
-
-func main() {
-
-	fmt.Println(hasCommonAncestor(parentChildPairs1, 3, 8))
-
-}
-
 func hasCommonAncestor(pairs [][]int, pair1, pair2 int) bool {
 
-	getByChild := make(map[int]int)
-	getByParent := make(map[int]int)
+	getByChild := make(map[int][]int)
+	getByParent := make(map[int][]int)
 
 	for _, pair := range pairs {
+		if _, ok := getByParent[pair[0]]; ok {
+			getByParent[pair[0]] = append(getByParent[pair[0]], pair[1])
+		} else {
+			getByParent[pair[0]] = make([]int, 0)
+			getByParent[pair[0]] = append(getByParent[pair[0]], pair[1])
+		}
 
+		if _, ok := getByChild[pair[1]]; ok {
+			getByChild[pair[1]] = append(getByChild[pair[1]], pair[0])
+		} else {
+			getByParent[pair[1]] = make([]int, 0)
+			getByChild[pair[1]] = append(getByChild[pair[1]], pair[0])
+		}
 	}
+	return false
 }
 
 /*
