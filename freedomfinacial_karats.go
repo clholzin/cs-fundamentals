@@ -1,5 +1,7 @@
 package fundamentals
 
+import "fmt"
+
 /*
 Suppose we have some input data describing a graph of relationships between parents and children over multiple generations. The data is formatted as a list of (parent, child) pairs,
 where each individual is assigned a unique positive integer identifier.
@@ -83,6 +85,49 @@ func hasCommonAncestor(pairs [][]int, pair1, pair2 int) bool {
 			getByChild[pair[1]] = append(getByChild[pair[1]], pair[0])
 		}
 	}
+
+	ancestors := make(map[int]int)
+	var current1, current2 int = pair1, pair2
+	var allfound bool
+	for !allfound {
+		var complete, complete2 bool
+		if parent1, ok := getByChild[current1]; ok {
+			ancestors[parent1[0]]++
+			if len(parent1) > 1 {
+				fmt.Printf("parent1 greater than 1: %v\n", parent1)
+				getByChild[current1] = parent1[1:]
+			} else {
+				current1 = parent1[0]
+			}
+		} else {
+			complete = true
+		}
+
+		if parent2, ok := getByChild[current2]; ok {
+			ancestors[parent2[0]]++
+			if len(parent2) > 1 {
+				fmt.Printf("parent2 greater than 1: %v\n", parent2)
+				getByChild[current2] = parent2[1:]
+			} else {
+				current2 = parent2[0]
+			}
+		} else {
+			complete2 = true
+		}
+
+		if complete && complete2 {
+			allfound = true
+		}
+
+	}
+
+	fmt.Println(ancestors)
+	for _, v := range ancestors {
+		if v > 1 {
+			return true
+		}
+	}
+
 	return false
 }
 
@@ -119,7 +164,7 @@ func findNodesWithZeroAndOneParents(parentChildPairs [][]int) ([]int, []int) {
 	var childrenwithoneparent []int
 	for _, v := range parentChildPairs {
 		if _, ok := parents[v[1]]; ok {
-			parents[v[1]] += 1
+			parents[v[1]]++
 		}
 		if val, ok := justoneparent[v[1]]; ok && val == 0 {
 			childrenwithoneparent = append(childrenwithoneparent, v[1])

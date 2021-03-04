@@ -1,7 +1,6 @@
 package fundamentals
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -36,6 +35,28 @@ var (
 	}
 )
 
+type data struct {
+	Pair1  int
+	Pair2  int
+	Expect bool
+}
+
 func TestKarats(t *testing.T) {
-	fmt.Println(hasCommonAncestor(parentChildPairs1, 3, 8))
+
+	tableTest := []data{
+		data{Pair1: 3, Pair2: 8, Expect: false},
+		data{Pair1: 5, Pair2: 8, Expect: true},
+		data{Pair1: 6, Pair2: 8, Expect: true},
+		data{Pair1: 6, Pair2: 9, Expect: true},
+		data{Pair1: 1, Pair2: 3, Expect: false},
+		data{Pair1: 3, Pair2: 1, Expect: false},
+		data{Pair1: 7, Pair2: 11, Expect: true},
+		data{Pair1: 6, Pair2: 5, Expect: true},
+		data{Pair1: 5, Pair2: 6, Expect: true},
+	}
+	for index, d := range tableTest {
+		if hasCommonAncestor(parentChildPairs1, d.Pair1, d.Pair2) != d.Expect {
+			t.Errorf("failed at %d", index)
+		}
+	}
 }
