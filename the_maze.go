@@ -1,5 +1,7 @@
 package fundamentals
 
+import "fmt"
+
 // # amazon question answer
 func hasPath(maze [][]int, start []int, destination []int) bool {
 	dest := destination

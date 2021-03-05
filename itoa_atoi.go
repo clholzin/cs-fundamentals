@@ -32,6 +32,14 @@ func addStrings(num1 string, num2 string) string {
 	return string(sum)
 }
 
+func max(val, val2 int) int {
+	if val > val2 {
+		return val
+	}
+	return val2
+
+}
+
 // atoi is usually used in strongly typed languages and opens as ASCII to Integer
 // because in ASCII characters are represented by number in the ASCII table we can convert
 // the digit character into it's number by substracting the number of the first digit in the table '0'
