@@ -22,6 +22,10 @@ Output: 4
 Note: You may assume k is always valid, 1 ≤ k ≤ array's length.
 
 
+# 03/19/2021
+
+https://leetcode.com/problems/implement-trie-prefix-tree/
+
 # 02/26/2021
 
 ## 1512. Number of Good Pairs
