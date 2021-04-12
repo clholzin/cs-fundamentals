@@ -31,8 +31,8 @@ func Constructor(capacity int) LRUCache {
 	}
 }
 
-func (this *LRUCache) Update(key, value int) {
-	if val, ok := this.Cache[key]; ok {
+func (lru *LRUCache) Update(key, value int) {
+	if val, ok := lru.Cache[key]; ok {
 		val.Val = value
 		valnext := val.Next
 		valprev := val.Prev
@@ -42,21 +42,21 @@ func (this *LRUCache) Update(key, value int) {
 				valnext.Prev = valprev
 			}
 			if valnext == nil {
-				this.LastUsed.Tail = valprev
+				lru.LastUsed.Tail = valprev
 			}
 		}
 
-		head := this.LastUsed.Head
+		head := lru.LastUsed.Head
 		if val != head {
 			val.Next = head
 			head.Prev = val
 			val.Prev = nil
-			this.LastUsed.Head = val
+			lru.LastUsed.Head = val
 		}
 	}
 }
-func (this *LRUCache) Add(key, value int) {
-	head := this.LastUsed.Head
+func (lru *LRUCache) Add(key, value int) {
+	head := lru.LastUsed.Head
 	val := &LinkNode{
 		Key: key,
 		Val: value,
@@ -65,52 +65,52 @@ func (this *LRUCache) Add(key, value int) {
 	if head != nil {
 		head.Prev = val
 	}
-	this.LastUsed.Head = val
-	if this.LastUsed.Tail == nil {
-		this.LastUsed.Tail = head
+	lru.LastUsed.Head = val
+	if lru.LastUsed.Tail == nil {
+		lru.LastUsed.Tail = head
 	}
-	this.Cache[key] = val
-	this.Count++
+	lru.Cache[key] = val
+	lru.Count++
 }
-func (this *LRUCache) Remove() {
-	tail := this.LastUsed.Tail
+func (lru *LRUCache) Remove() {
+	tail := lru.LastUsed.Tail
 	if tail == nil {
-		tmp := this.LastUsed.Head
-		this.LastUsed.Head = nil
-		this.Count--
-		delete(this.Cache, tmp.Key)
+		tmp := lru.LastUsed.Head
+		lru.LastUsed.Head = nil
+		lru.Count--
+		delete(lru.Cache, tmp.Key)
 	} else {
 		curr := tail
 		prev := curr.Prev
 		if prev != nil {
-			this.LastUsed.Tail = prev
-			this.LastUsed.Tail.Next = nil
+			lru.LastUsed.Tail = prev
+			lru.LastUsed.Tail.Next = nil
 		} else {
-			this.LastUsed.Tail = nil
-			this.LastUsed.Head = nil
+			lru.LastUsed.Tail = nil
+			lru.LastUsed.Head = nil
 		}
-		this.Count--
-		delete(this.Cache, curr.Key)
+		lru.Count--
+		delete(lru.Cache, curr.Key)
 	}
 
 }
 
-func (this *LRUCache) Get(key int) int {
-	if val, ok := this.Cache[key]; ok {
-		this.Update(key, val.Val)
+func (lru *LRUCache) Get(key int) int {
+	if val, ok := lru.Cache[key]; ok {
+		lru.Update(key, val.Val)
 		return val.Val
 	}
 	return -1
 }
 
-func (this *LRUCache) Put(key int, value int) {
-	if _, ok := this.Cache[key]; !ok {
-		if this.Count == this.Cap {
-			this.Remove()
+func (lru *LRUCache) Put(key int, value int) {
+	if _, ok := lru.Cache[key]; !ok {
+		if lru.Count == this.Cap {
+			lru.Remove()
 		}
-		this.Add(key, value)
+		lru.Add(key, value)
 	} else {
-		this.Update(key, value)
+		lru.Update(key, value)
 	}
 }
 
