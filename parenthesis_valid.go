@@ -1,26 +1,5 @@
 package fundamentals
 
-import "fmt"
-
-func main() {
-
-	fmt.Println(parenCount("()"))                 //1
-	fmt.Println(parenCount("(())"))               //2
-	fmt.Println(parenCount("((()()()))"))         //3
-	fmt.Println(parenCount("((()()(())))"))       //4
-	fmt.Println(parenCount("((((((((()))))))))")) //9
-	fmt.Println(parenCount("((()))(())"))         //3 - fail 4
-	fmt.Println(parenCount("(())((()))"))         //3 - fail 4
-
-	fmt.Println(parenCheck("()"))                //true
-	fmt.Println(parenCheck("(d(ds))"))           // true
-	fmt.Println(parenCheck("(d(ds)"))            // false
-	fmt.Println(parenCheck("(d(dass(()()())))")) //true
-	fmt.Println(parenCheck("(d(dass(()(())))"))  //false
-	fmt.Println(parenCheck("(()))"))             //false
-	fmt.Println(parenCheck("(((((((())))))))"))  //true
-}
-
 // retur integer of the max depth of a set of parenthisis
 func parenCount(st string) int {
 	var count int
@@ -33,7 +12,7 @@ func parenCount(st string) int {
 			lastVal = val
 		}
 		if val == ")" && lastVal == "(" {
-			maxcount = max(count, maxcount)
+			maxcount = maximum(count, maxcount)
 			count--
 			lastVal = ""
 		}
@@ -41,7 +20,7 @@ func parenCount(st string) int {
 	return maxcount
 }
 
-func max(a, b int) int {
+func maximum(a, b int) int {
 	if a > b {
 		return a
 	}
