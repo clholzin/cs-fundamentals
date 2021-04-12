@@ -120,3 +120,8 @@ func (lru *LRUCache) Put(key int, value int) {
  * param_1 := obj.Get(key);
  * obj.Put(key,value);
  */
+
+/* example set
+["LRUCache","put","put","put","put","get","get","get","get","put","get","get","get","get","get"]
+[[3],[1,1],[2,2],[3,3],[4,4],[4],[3],[2],[1],[5,5],[1],[2],[3],[4],[5]]
+*/
