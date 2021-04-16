@@ -10,7 +10,7 @@ type Trie struct {
 }
 
 /** Initialize your data structure here. */
-func Constructor() Trie {
+func ConstructorLRU() Trie {
 	words := make(map[string]interface{})
 	return Trie{Words: words}
 }

@@ -105,7 +105,7 @@ func (lru *LRUCache) Get(key int) int {
 
 func (lru *LRUCache) Put(key int, value int) {
 	if _, ok := lru.Cache[key]; !ok {
-		if lru.Count == this.Cap {
+		if lru.Count == lru.Cap {
 			lru.Remove()
 		}
 		lru.Add(key, value)
