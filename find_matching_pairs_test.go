@@ -23,6 +23,6 @@ func TestBSPairs(t *testing.T) {
 		if c := bs(data.Values); c != data.Expect {
 			t.Errorf("failed on %d %d", c, data.Expect)
 		}
-		//t.Log("finished")
+		t.Log("finished")
 	}
 }

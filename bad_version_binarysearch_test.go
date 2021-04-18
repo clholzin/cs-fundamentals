@@ -15,15 +15,15 @@ import (
 //  1 2 3 4 5
 //.     x x x
 
-func TestBS(t *testing.T) {
+func TestBSBadVersions(t *testing.T) {
 
 	versions := []int{0, 1, 2, 3, 4, 5}
 
-	for i := 0; i < len(versions)+1; i++ {
+	for i := 0; i < len(versions); i++ {
 
 		globalIsBadVal = i
 
-		if val := binarySearch(len(versions)/2, (len(versions)/2)-1, versions); val != globalIsBadVal {
+		if val := binarySearchVersions(len(versions)/2, (len(versions)/2)-1, versions); val != globalIsBadVal {
 			t.Errorf("failed %d", val)
 		}
 
@@ -31,7 +31,7 @@ func TestBS(t *testing.T) {
 
 	globalIsBadVal = 6
 
-	if val := binarySearch(len(versions)/2, (len(versions)/2)-1, versions); val == -1 {
+	if val := binarySearchVersions(len(versions)/2, (len(versions)/2)-1, versions); val != -1 {
 		t.Errorf("failed %d", val)
 	}
 

@@ -1,5 +1,7 @@
 package fundamentals
 
+import "fmt"
+
 /*
 1,1,2,2,3,4,4,5,5
 
@@ -16,7 +18,7 @@ func bs(values []int) int {
 	p2 := values[split:]
 	endp1, startp2 := p1[len(p1)-1], p2[0]
 
-	//fmt.Printf("endp1: %d startp2: %d middle: %d\n", endp1, startp2, values[split])
+	fmt.Printf("endp1: %d startp2: %d middle: %d\n", endp1, startp2, values[split])
 	middle := values[split]
 	if middle != endp1 && middle != startp2 {
 		return middle
@@ -28,10 +30,10 @@ func bs(values []int) int {
 	if len(p2) == 1 {
 		return p2[0]
 	}
-	if (len(p1))%2 == 1 {
-		if len(p1) == 1 {
-			return p1[0]
-		}
+	if len(p1) == 1 {
+		return p1[0]
+	}
+	if (len(p1) % 2) == 1 {
 		return bs(p1)
 	}
 	return bs(p2)

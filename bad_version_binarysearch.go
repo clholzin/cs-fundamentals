@@ -2,25 +2,9 @@ package fundamentals
 
 import "fmt"
 
-// To execute Go code, please declare a func main() in a package "main"
-
-// API, versions: 1, 2, 3, ... n
-// regression - x
-// good versions: 1, 2, ... x-1
-// bad version: x, x+1, ...n
-// goal - find first bad version
-// provided - bool isBadVersion(int n) - true for >= 3
-//  1 2 3 4 5
-//.     x x x
-
-/*
-func main() {
-  fmt.Println(search(versions,len(versions)))
-}*/
-
 var globalIsBadVal int
 
-func binarySearch(indx, prevx int, versions []int) int {
+func binarySearchVersions(indx, prevx int, versions []int) int {
 	if indx >= len(versions) || indx < 0 {
 		return -1
 	}
@@ -45,7 +29,7 @@ func binarySearch(indx, prevx int, versions []int) int {
 		tmp := indx / 2
 		prevx = tmp - 1
 		fmt.Println(tmp, tmp-1)
-		return binarySearch(tmp, prevx, versions)
+		return binarySearchVersions(tmp, prevx, versions)
 	}
 	if !valcheck && !prevcheck {
 		tmp := indx/2 + indx
@@ -58,7 +42,7 @@ func binarySearch(indx, prevx int, versions []int) int {
 		}
 		fmt.Println(tmp, tmp-1)
 		prevx = tmp - 1
-		return binarySearch(tmp, prevx, versions)
+		return binarySearchVersions(tmp, prevx, versions)
 	}
 
 	return val
