@@ -31,11 +31,8 @@ func binarySearchVersions(indx, prevx int, versions []int) int {
 	fmt.Printf("globalIsBadVal %d indx %d prev %d val %d\n", globalIsBadVal, indx, prevx, val)
 
 	if valcheck && prevcheck {
-		tmp := indx / 2
+		tmp := indx - 1
 		prevx = tmp - 1
-		if indx == len(versions)-1 {
-			tmp = indx - 1
-		}
 		fmt.Println(tmp, tmp-1)
 		return binarySearchVersions(tmp, prevx, versions)
 	}
