@@ -17,22 +17,24 @@ import (
 
 func TestBSBadVersions(t *testing.T) {
 
-	versions := []int{0, 1, 2, 3, 4, 5}
+	versions := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 
 	for i := 0; i < len(versions); i++ {
 
 		globalIsBadVal = i
 
 		if val := binarySearchVersions(len(versions)/2, (len(versions)/2)-1, versions); val != globalIsBadVal {
-			t.Errorf("failed %d", val)
+			t.Errorf("failed %d for globalIsBadVal %d", val, globalIsBadVal)
 		}
+		//t.Log("finish")
 
 	}
 
-	globalIsBadVal = 6
+	globalIsBadVal = 10
 
 	if val := binarySearchVersions(len(versions)/2, (len(versions)/2)-1, versions); val != -1 {
-		t.Errorf("failed %d", val)
+		t.Errorf("failed %d for globalIsBadVal %d", val, globalIsBadVal)
 	}
+	//t.Log("finish")
 
 }

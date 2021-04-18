@@ -4,6 +4,10 @@ import "fmt"
 
 var globalIsBadVal int
 
+// notes
+/* This style isn't partitioning the
+array into chuncks but moving the index logarithmically
+*/
 func binarySearchVersions(indx, prevx int, versions []int) int {
 	if indx >= len(versions) || indx < 0 {
 		return -1
@@ -13,7 +17,7 @@ func binarySearchVersions(indx, prevx int, versions []int) int {
 	}
 	val := versions[indx]
 	valcheck := isBadVersion(val)
-	if indx == 0 && valcheck || indx == len(versions)-1 && valcheck {
+	if indx == 0 && valcheck {
 		return val
 	}
 
@@ -23,11 +27,15 @@ func binarySearchVersions(indx, prevx int, versions []int) int {
 
 	prev := versions[prevx]
 	prevcheck := isBadVersion(prev)
+
 	fmt.Printf("globalIsBadVal %d indx %d prev %d val %d\n", globalIsBadVal, indx, prevx, val)
 
 	if valcheck && prevcheck {
 		tmp := indx / 2
 		prevx = tmp - 1
+		if indx == len(versions)-1 {
+			tmp = indx - 1
+		}
 		fmt.Println(tmp, tmp-1)
 		return binarySearchVersions(tmp, prevx, versions)
 	}
