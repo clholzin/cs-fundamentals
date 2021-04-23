@@ -1,6 +1,24 @@
 package fundamentals
 
 //https://leetcode.com/problems/the-maze-ii/submissions/
+
+/*
+test case:
+maze  [[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]]
+start [0,4]
+end   [4,4]
+
+log
+[
+  [6 7 U 1 0]
+	[5 U 9 2 3]
+	[6 9 8 U 2]
+	[U U U U U]
+	[12 U 10 U 12]
+	]
+
+*/
+
 import "errors"
 
 const IntMaxBFS int = int(2147483647)
