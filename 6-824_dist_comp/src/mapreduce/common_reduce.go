@@ -44,7 +44,6 @@ func doReduce(
 			fmt.Errorf("failed to read file %v", err)
 		}
 
-
 		//readerFile := bytes.NewReader(f)
 		seeker := bufio.NewScanner(f)
 
