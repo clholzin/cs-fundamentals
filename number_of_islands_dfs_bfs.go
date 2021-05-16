@@ -19,6 +19,14 @@ func numIslands(grid [][]byte) int {
 	}
 	return countIslands
 }
+
+/*BFS
+Complexity Analysis
+
+Time complexity : O(M x N)O(M×N) where MM is the number of rows and NN is the number of columns.
+
+Space complexity : O(min(M, N))O(min(M,N)) because in worst case where the grid is filled with lands, the size of queue can grow up to min(M,NM,N).
+*/
 func clearIslandsBFS(grid [][]byte, row, col int) {
 	lenRow := len(grid)
 	lenCol := len(grid[0])
@@ -42,6 +50,14 @@ func clearIslandsBFS(grid [][]byte, row, col int) {
 		}
 	}
 }
+
+/*DFS
+Complexity Analysis
+
+Time complexity : O(M x N)O(M×N) where MM is the number of rows and NN is the number of columns.
+
+Space complexity : worst case O(M \times N)O(M×N) in case that the grid map is filled with lands where DFS goes by M \times NM×N deep.
+*/
 
 func clearIslandsDFS(grid [][]byte, row, col int) {
 	lenRow := len(grid)
