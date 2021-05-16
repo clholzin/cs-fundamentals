@@ -1,5 +1,6 @@
 package fundamentals
 
+// accepted answer
 func checkInclusion(s1 string, s2 string) bool {
 	if len(s1) > len(s2) {
 		return false
@@ -32,6 +33,46 @@ func matches(s1map, s2map [26]int) bool {
 		}
 	}
 	return true
+}
+
+/*
+fails on
+"abcdxabcde"
+"abcdeabcdx"
+*/
+
+func checkInclusionSlidingWindow(s1 string, s2 string) bool {
+
+	if len(s1) > len(s2) {
+		return false
+	}
+	subsets := findSubsets(s1)
+	// fmt.Println("subsets",subsets)
+	for _, sub := range subsets {
+		if len(sub) == len(s2) {
+			//fmt.Println(sub, s2)
+			if sub == s2 {
+				return true
+			} else {
+				continue
+			}
+		}
+		start := 0
+		end := len(sub)
+		for i := 0; i < len(s2); i++ {
+			val := s2[start:end]
+			if sub == val {
+				fmt.Println(sub, val)
+				return true
+			}
+			start++
+			end++
+			if end > len(s2) {
+				break
+			}
+		}
+	}
+	return false
 }
 
 // build all permutaions of a string
