@@ -33,3 +33,32 @@ func matches(s1map, s2map [26]int) bool {
 	}
 	return true
 }
+
+// build all permutaions of a string
+func findSubsets(s1 string) (result []string) {
+	perms := []string{""}
+	for i := 0; i < len(s1); i++ {
+		sval := string(s1[i])
+		permSize := len(perms)
+		for j := 0; j < permSize; j++ {
+			oldperm := perms[0]
+			perms = perms[1:]
+			if len(oldperm) == 0 {
+				perms = append(perms, sval)
+			}
+			for p := 0; p < len(oldperm); p++ {
+				oldp := oldperm
+				o := oldp[:p]
+				n := oldp[p:]
+				newval := o + sval + n
+				if len(newval) == len(s1) {
+					result = append(result, newval)
+				} else {
+					perms = append(perms, newval)
+				}
+			}
+		}
+	}
+	result = append(result, s1)
+	return
+}
