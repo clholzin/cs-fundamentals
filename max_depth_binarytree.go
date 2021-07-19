@@ -4,13 +4,13 @@ package fundamentals
  * Definition for a binary tree node.
  */
 
-type TreeNode struct {
+type TreeNode2 struct {
 	Val   int
-	Left  *TreeNode
-	Right *TreeNode
+	Left  *TreeNode2
+	Right *TreeNode2
 }
 
-func maxDepth(root *TreeNode) int {
+func maxDepth(root *TreeNode2) int {
 	if root == nil {
 		return 0
 	}
