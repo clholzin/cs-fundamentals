@@ -1,5 +1,7 @@
 package fundamentals
 
+import "fmt"
+
 // accepted answer
 func checkInclusion(s1 string, s2 string) bool {
 	if len(s1) > len(s2) {

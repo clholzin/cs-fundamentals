@@ -7,15 +7,15 @@ package fundamentals
 func findOrder2(numCourses int, prerequisites [][]int) []int {
 
 	parents := make(map[int][]int)
-	edges := make([]int, numCoures)
+	edges := make([]int, numCourses)
 
-	for i := 0; i < numCoures; i++ {
+	for i := 0; i < numCourses; i++ {
 		parents[i] = []int{}
 		edges[i] = 0
 	}
 
 	for _, course := range prerequisites {
-		child, parent := coure[0], course[1]
+		child, parent := course[0], course[1]
 		edges[child] = edges[child] + 1
 		parents[parent] = append(parents[parent], child)
 	}

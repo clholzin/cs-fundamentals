@@ -2,8 +2,8 @@ package fundamentals
 
 //https://leetcode.com/problems/string-to-integer-atoi/
 
-const IntMax int = int(2147483647)
-const MaxNext int = int(IntMax % 10)
+const IntMax32 int = int(2147483647)
+const MaxNext int = int(IntMax32 % 10)
 
 var IntMap map[string]int = map[string]int{
 	"0": int(0),
@@ -53,17 +53,17 @@ func myAtoi(s string) int {
 
 		if ok {
 			tempIntsStr += st
-			if temp > ((IntMax - MaxNext) / 10) {
-				temp = IntMax
+			if temp > ((IntMax32 - MaxNext) / 10) {
+				temp = IntMax32
 				isGreaterThanMax = true
 				break
 			}
-			if temp == ((IntMax-MaxNext)/10) && val > MaxNext {
-				temp = IntMax
+			if temp == ((IntMax32-MaxNext)/10) && val > MaxNext {
+				temp = IntMax32
 				isGreaterThanMax = true
 				break
 			}
-			if (IntMax - temp) >= val {
+			if (IntMax32 - temp) >= val {
 				temp = temp * 10
 				temp += val
 			}

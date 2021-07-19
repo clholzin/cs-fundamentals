@@ -35,7 +35,7 @@ func findOrderAlien(words []string) string {
 		}
 	}
 
-	queue := make([]int, 0)
+	queue := make([]byte, 0)
 	for character, count := range edges {
 		if count == 0 {
 			queue = append(queue, character)

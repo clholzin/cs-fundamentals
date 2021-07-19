@@ -4,8 +4,6 @@ import (
 	"testing"
 )
 
-// To execute Go code, please declare a func main() in a package "main"
-
 // API, versions: 1, 2, 3, ... n
 // regression - x
 // good versions: 1, 2, ... x-1

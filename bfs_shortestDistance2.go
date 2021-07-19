@@ -24,12 +24,7 @@ log
 */
 
 import (
-	"fmt"
 	"math"
-)
-
-const (
-	IntMax int = math.MaxInt32
 )
 
 func shortestDistance2(maze [][]int, start []int, dest []int) int {
@@ -38,7 +33,7 @@ func shortestDistance2(maze [][]int, start []int, dest []int) int {
 	for i := 0; i < len(maze); i++ {
 		distance[i] = make([]int, len(maze[0]))
 		for j := 0; j < len(maze[0]); j++ {
-			distance[i][j] = IntMax
+			distance[i][j] = math.MaxInt32
 		}
 	}
 
@@ -90,7 +85,7 @@ func shortestDistance2(maze [][]int, start []int, dest []int) int {
 	}
 
 	// check we can get to dest
-	if distance[dest[0]][dest[1]] == IntMax {
+	if distance[dest[0]][dest[1]] == math.MaxInt32 {
 		return -1
 	}
 

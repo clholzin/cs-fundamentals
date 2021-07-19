@@ -5,13 +5,13 @@ type node struct {
 	i int
 }
 
-type heap struct {
+type heapMax struct {
 	size   int
 	length int
 	list   []*node
 }
 
-func (h *heap) sink(i int) {
+func (h *heapMax) sink(i int) {
 	for 2*i+1 < h.length {
 		j := 2*i + 1
 		if j+1 < h.length && h.list[j].d < h.list[j+1].d {
@@ -27,7 +27,7 @@ func (h *heap) sink(i int) {
 	}
 }
 
-func (h *heap) swim(i int) {
+func (h *heapMax) swim(i int) {
 	for i > 0 {
 		pi := (i - 1) / 2
 		if h.list[pi].d > h.list[i].d {
@@ -39,7 +39,7 @@ func (h *heap) swim(i int) {
 	}
 }
 
-func (h *heap) max() int {
+func (h *heapMax) max() int {
 	if h.length > 0 {
 		return h.list[0].d
 	} else {
@@ -48,7 +48,7 @@ func (h *heap) max() int {
 }
 
 func kClosestMaxHeap(points [][]int, K int) [][]int {
-	h := heap{K, 0, []*node{}}
+	h := heapMax{K, 0, []*node{}}
 
 	for i, p := range points {
 		d := p[0]*p[0] + p[1]*p[1]
