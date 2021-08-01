@@ -8,8 +8,51 @@ package fundamentals
 [1]
 [[2]]
 
+
 */
 
+func mergeSortPractice(data []int) []int {
+	if len(data) <= 1 {
+		return data
+	}
+
+	mid := len(data) / 2
+	left := data[:mid]
+	right := data[mid:]
+
+	return mergePractice(mergeSortPractice(left), mergeSortPractice(right))
+}
+
+func mergePractice(l1, l2 []int) []int {
+
+	l1len := len(l1)
+	l2len := len(l2)
+	n := l1len + l2len
+	result := make([]int, n)
+	i := 0
+	for len(l1) > 0 && len(l2) > 0 {
+		if l1[0] < l2[0] {
+			result[i] = l1[0]
+			l1 = l1[1:]
+		} else {
+			result[i] = l2[0]
+			l2 = l2[1:]
+		}
+		i++
+	}
+
+	for j := 0; j < len(l1); j++ {
+		result[i] = l1[j]
+		i++
+	}
+	for j := 0; j < len(l2); j++ {
+		result[i] = l2[j]
+		i++
+	}
+	return result
+}
+
+/*
 func mergesort_practice(data []int) []int {
 
 	if len(data) <= 1 {
@@ -56,6 +99,7 @@ func merge_practice(left, right []int) []int {
 	return res
 
 }
+*/
 
 /*
 func mergesort(data []int) []int {
@@ -65,31 +109,7 @@ func mergesort(data []int) []int {
 	}
 
 	left := 0
-<<<<<<< HEAD
-	mid := len(data) / 2
-	right := len(data)
 
-	leftdata := data[start:mid]
-	rightdata := data[mid:right]
-
-	return merge(MergeSort(leftdata), MergeSort(rightdata))
-}
-
-func merge(left, right []int) []int {
-	leftlen := len(left)
-	rightlen := len(right)
-	result := make([]int, leftlen+rightlen)
-
-	i := 0
-
-	for len(left) > 0 || len(right) > 0 {
-
-		if left[i] < right[i] {
-			result[i] = left[i]
-			left = left[1:]
-		} else {
-			result[i] = right[i]
-=======
 	right := len(right)
 	middel := (left + right) / 2
 
@@ -112,7 +132,6 @@ func merge(left, right []int) []int {
 			left = left[1:]
 		} else {
 			result[i] = right[0]
->>>>>>> f8bebed0d229a3039502176800305e70769a55c1
 			right = right[1:]
 		}
 		i++
@@ -127,11 +146,7 @@ func merge(left, right []int) []int {
 		result[i] = right[j]
 		i++
 	}
-<<<<<<< HEAD
-	return result
 
-}
-=======
 
 	return result
 

@@ -3,11 +3,10 @@ package fundamentals
 // This example demonstrates a priority queue built using the heap interface.
 import (
 	"container/heap"
-	"fmt"
 )
 
 // An Item is something we manage in a priority queue.
-type Item struct {
+type PriorityItem struct {
 	value    string // The value of the item; arbitrary.
 	priority int    // The priority of the item in the queue.
 	// The index is needed by update and is maintained by the heap.Interface methods.
@@ -15,7 +14,7 @@ type Item struct {
 }
 
 // A PriorityQueue implements heap.Interface and holds Items.
-type PriorityQueue []*Item
+type PriorityQueue []*PriorityItem
 
 func (pq PriorityQueue) Len() int { return len(pq) }
 
@@ -32,7 +31,7 @@ func (pq PriorityQueue) Swap(i, j int) {
 
 func (pq *PriorityQueue) Push(x interface{}) {
 	n := len(*pq)
-	item := x.(*Item)
+	item := x.(*PriorityItem)
 	item.index = n
 	*pq = append(*pq, item)
 }
@@ -48,7 +47,7 @@ func (pq *PriorityQueue) Pop() interface{} {
 }
 
 // update modifies the priority and value of an Item in the queue.
-func (pq *PriorityQueue) update(item *Item, value string, priority int) {
+func (pq *PriorityQueue) update(item *PriorityItem, value string, priority int) {
 	item.value = value
 	item.priority = priority
 	heap.Fix(pq, item.index)
@@ -56,7 +55,7 @@ func (pq *PriorityQueue) update(item *Item, value string, priority int) {
 
 // This example creates a PriorityQueue with some items, adds and manipulates an item,
 // and then removes the items in priority order.
-func maxHeap() {
+/*func maxHeap() {
 	// Some items and their priorities.
 	items := map[string]int{
 		"banana": 3, "apple": 2, "pear": 4,
@@ -67,7 +66,7 @@ func maxHeap() {
 	pq := make(PriorityQueue, len(items))
 	i := 0
 	for value, priority := range items {
-		pq[i] = &Item{
+		pq[i] = &PriorityItem{
 			value:    value,
 			priority: priority,
 			index:    i,
@@ -89,4 +88,4 @@ func maxHeap() {
 		item := heap.Pop(&pq).(*Item)
 		fmt.Printf("%.2d:%s ", item.priority, item.value)
 	}
-}
+}*/
