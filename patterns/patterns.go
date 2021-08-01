@@ -326,15 +326,17 @@ func patternStringPermutationsByChgCase(str string) []string {
 	perms = append(perms, str)
 
 	for i := 0; i < len(str); i++ {
-		permCount := len(perms)
-		for j := 0; j < permCount; j++ {
-			strVal := []byte(perms[j])
-			if strVal[i] >= byte('A') && strVal[i] <= byte('Z') {
-				strVal[i] = []byte(strings.ToLower(string(strVal[i])))[0]
-				perms[j] = string(strVal)
-			} else {
-				strVal[i] = []byte(strings.ToUpper(string(strVal[i])))[0]
-				perms = append(perms, string(strVal))
+		if str[i] >= byte('A') {
+			permCount := len(perms)
+			for j := 0; j < permCount; j++ {
+				strVal := []byte(perms[j])
+				if strVal[i] >= byte('A') && strVal[i] <= byte('Z') {
+					strVal[i] = []byte(strings.ToLower(string(strVal[i])))[0]
+					perms[j] = string(strVal)
+				} else {
+					strVal[i] = []byte(strings.ToUpper(string(strVal[i])))[0]
+					perms = append(perms, string(strVal))
+				}
 			}
 		}
 	}
