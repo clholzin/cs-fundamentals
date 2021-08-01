@@ -284,53 +284,21 @@ Pattern Subsets
 */
 
 /*
-Balanced Parentheses (hard)
-time: 2N
-space: N*2N
-*/
-type ParenthesesString struct {
-	Str        string
-	Opencount  int
-	Closecount int
-}
-
-func patternBallencedParentheses(num int) []string {
-	result := make([]string, 0)
-	queue := make([]*ParenthesesString, 0)
-
-	queue = append(queue, &ParenthesesString{"", 0, 0})
-
-	for len(queue) > 0 {
-		ps := queue[0]
-		queue = queue[1:]
-		if ps.Opencount == num && ps.Closecount == num {
-			result = append(result, ps.Str)
-		} else {
-			if ps.Opencount < num {
-				queue = append(queue, &ParenthesesString{ps.Str + "(", ps.Opencount + 1, ps.Closecount})
-			}
-			if ps.Opencount > ps.Closecount {
-				queue = append(queue, &ParenthesesString{ps.Str + ")", ps.Opencount, ps.Closecount + 1})
-			}
-		}
-	}
-	return result
-}
-
-/*
 String Permutations by changing case (medium)
+time: O(N∗2N)
+space: O(N*2N)
 */
-func patternStringPermutationsByChgCase(str string) []string {
 
+func patternStringPermutationsByChgCase(str string) []string {
 	perms := make([]string, 0)
 	perms = append(perms, str)
 
 	for i := 0; i < len(str); i++ {
 		if str[i] >= byte('A') {
-			permCount := len(perms)
-			for j := 0; j < permCount; j++ {
+			count := len(perms)
+			for j := 0; j < count; j++ {
 				strVal := []byte(perms[j])
-				if strVal[i] >= byte('A') && strVal[i] <= byte('Z') {
+				if strVal[i] < byte('a') {
 					strVal[i] = []byte(strings.ToLower(string(strVal[i])))[0]
 					perms[j] = string(strVal)
 				} else {
@@ -342,6 +310,43 @@ func patternStringPermutationsByChgCase(str string) []string {
 	}
 
 	return perms
+}
+
+/*
+Balanced Parentheses (hard)
+time: 2N
+space: N*2N
+*/
+
+type ParenthesesStr struct {
+	Str        string
+	Opencount  int
+	Closecount int
+}
+
+func patternBallencedParentheses(num int) []string {
+	result := make([]string, 0)
+
+	queue := make([]*ParenthesesStr, 0)
+	queue = append(queue, &ParenthesesStr{"", 0, 0})
+
+	for len(queue) > 0 {
+		val := queue[0]
+		queue = queue[1:]
+		if val.Opencount == num && val.Closecount == num {
+			result = append(result, val.Str)
+		} else {
+			if val.Opencount < num {
+				next := &ParenthesesStr{val.Str + "(", val.Opencount + 1, val.Closecount}
+				queue = append(queue, next)
+			}
+			if val.Closecount < val.Opencount {
+				next := &ParenthesesStr{val.Str + ")", val.Opencount, val.Closecount + 1}
+				queue = append(queue, next)
+			}
+		}
+	}
+	return result
 }
 
 /*
