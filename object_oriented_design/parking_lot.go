@@ -1,7 +1,9 @@
 package parkinglot
 
 import (
+	"fmt"
 	"log"
+	"strings"
 )
 
 /*
@@ -9,6 +11,10 @@ Following is the skeleton code for our parking lot system:
 
 Enums and Constants: Here are the required enums, data types, and constants:
 */
+// TotalFloors
+const (
+	TotalFloors = 3
+)
 
 // VehicleType
 const (
@@ -19,13 +25,13 @@ const (
 	MOTORBIKE
 )
 
-// ParkingSpottype
+// ParkingSpotType
 const (
-	HANDICAPPED_SPOT = iota
-	COMPACT_SPOT
-	LARGE_SPOT
-	MOTORBIKE_SPOT
-	ELECTRIC_SPOT
+	TypeHandicappedSpot = iota
+	TypeCompactSpot
+	TypeLargeSpot
+	TypeMotorBikeSpot
+	TypeElectricSpot
 )
 
 // AccountStatus
@@ -40,11 +46,21 @@ const (
 
 // ParkingTicketStatus
 const (
-	ACTIVE_Ticket = iota
-	PAID_Ticket
-	LOST_Ticket
+	ActiveTicket = iota
+	PaidTicket
+	LostTicket
 )
 
+// FloorTotals
+const (
+	FloorTotalHandicapped = 5
+	FloorTotalCompact     = 12
+	FloorTotalLarge       = 10
+	FloorTotalMotorBike   = 2
+	FloorTotalElectric    = 5
+)
+
+// Address ...
 type Address struct {
 	StreetAddress string
 	City          string
@@ -53,6 +69,7 @@ type Address struct {
 	Country       string
 }
 
+// Person ...
 type Person struct {
 	Name    string
 	Address Address
@@ -63,7 +80,8 @@ type Person struct {
 /*
 Account, Admin, and ParkingAttendant: These classes represent various people that interact with our system:
 */
-// Account
+
+// Account ...
 type Account struct {
 	userName string
 	password string
@@ -71,6 +89,7 @@ type Account struct {
 	Person
 }
 
+// Accounter ...
 type Accounter interface {
 	ResetPassword() bool
 }
@@ -123,11 +142,11 @@ func (spot ParkingSpot) Type() int {
 // SetSpotType
 func (spot ParkingSpot) SetSpotType(spotType int) bool {
 	switch spotType {
-	case HANDICAPPED_SPOT:
-	case COMPACT_SPOT:
-	case LARGE_SPOT:
-	case MOTORBIKE_SPOT:
-	case ELECTRIC_SPOT:
+	case TypeHandicappedSpot:
+	case TypeCompactSpot:
+	case TypeLargeSpot:
+	case TypeMotorBikeSpot:
+	case TypeElectricSpot:
 		spot.parkingSpotType = spotType
 		break
 	default:
@@ -247,6 +266,23 @@ type VehicleManger interface {
 	Type() int
 }
 
+// NewVehicle ...
+func NewVehicle(cartype int) (VehicleManger, error) {
+	switch cartype {
+	case CAR:
+		return NewCarVehicle(), nil
+	case TRUCK:
+		return NewTruckVehicle(), nil
+	case VAN:
+		return NewVanVehicle(), nil
+	case MOTORBIKE:
+		return NewMotorBikeVehicle(), nil
+	case ELECTRIC:
+		return NewElectricVehicle(), nil
+	}
+	return nil, fmt.Errorf("wrong type provided")
+}
+
 type Car struct {
 	Vehicle
 }
@@ -297,10 +333,7 @@ func NewMotorBikeVehicle() MotorBike {
 	return v
 }
 
-/*
-ParkingFloor: This class encapsulates a parking floor:
-*/
-
+// ParkingFloor: This class encapsulates a parking floor:
 type ParkingFloor struct {
 	name             string
 	handicappedSpots map[string]HandicappedSpot
@@ -318,19 +351,19 @@ func (floor ParkingFloor) SetParkingFloor(name string) {
 
 func (floor ParkingFloor) AddParkingSpot(spot ParkingSpot) {
 	switch spot.Type() {
-	case HANDICAPPED_SPOT:
+	case TypeHandicappedSpot:
 		floor.handicappedSpots[spot.Number()] = spot.NewHandicappedSpot()
 		break
-	case COMPACT_SPOT:
+	case TypeCompactSpot:
 		floor.compactSpots[spot.Number()] = spot.NewCompactSpot()
 		break
-	case LARGE_SPOT:
+	case TypeLargeSpot:
 		floor.largeSpots[spot.Number()] = spot.NewLargeSpot()
 		break
-	case MOTORBIKE_SPOT:
+	case TypeMotorBikeSpot:
 		floor.motorBikeSpots[spot.Number()] = spot.NewMotorBikeSpot()
 		break
-	case ELECTRIC_SPOT:
+	case TypeElectricSpot:
 		floor.electricSpots[spot.Number()] = spot.NewElectricSpot()
 		break
 	default:
@@ -341,11 +374,11 @@ func (floor ParkingFloor) AddParkingSpot(spot ParkingSpot) {
 func (floor ParkingFloor) AssignVehicleToSpot(vehicle VehicleManger, spot ParkingSpotAssigner) {
 	spot.AssignVehicle(vehicle)
 	switch spot.Type() {
-	case HANDICAPPED_SPOT:
-	case COMPACT_SPOT:
-	case LARGE_SPOT:
-	case MOTORBIKE_SPOT:
-	case ELECTRIC_SPOT:
+	case TypeHandicappedSpot:
+	case TypeCompactSpot:
+	case TypeLargeSpot:
+	case TypeMotorBikeSpot:
+	case TypeElectricSpot:
 		floor.updateDisplayBoardForSpotType(spot)
 		break
 	default:
@@ -354,13 +387,13 @@ func (floor ParkingFloor) AssignVehicleToSpot(vehicle VehicleManger, spot Parkin
 }
 
 func (floor ParkingFloor) updateDisplayBoardForSpotType(spot ParkingSpotAssigner) {
-	if _, ok := floor.displayBoard.TakenSpotCountByType[spot.Type()]; ok {
-		if spot.IsFree() {
-			floor.displayBoard.TakenSpotCountByType[spot.Type()] -= 1
-		} else {
-			floor.displayBoard.TakenSpotCountByType[spot.Type()] += 1
-		}
+
+	if spot.IsFree() {
+		floor.displayBoard.TakenSpotCountByType[spot.Type()] -= 1
+	} else {
+		floor.displayBoard.TakenSpotCountByType[spot.Type()] += 1
 	}
+
 	floor.displayBoard.showEmptySpotNumbers()
 }
 
@@ -373,11 +406,170 @@ type ParkingDisplayBoard struct {
 	TakenSpotCountByType map[int]int
 }
 
-func (board ParkingDisplayBoard) showEmptySpotNumbers() {
+func NewParkingDisplayBoard() ParkingDisplayBoard {
+	display := ParkingDisplayBoard{}
+	display.TakenSpotCountByType[TypeHandicappedSpot] = 0
+	display.TakenSpotCountByType[TypeCompactSpot] = 0
+	display.TakenSpotCountByType[TypeLargeSpot] = 0
+	display.TakenSpotCountByType[TypeMotorBikeSpot] = 0
+	display.TakenSpotCountByType[TypeElectricSpot] = 0
 
+	return display
 }
 
-type Ticket struct{}
+type FloorFreeSpotCounts struct {
+	Handicapped int
+	Compact     int
+	Large       int
+	Electric    int
+	MotorBike   int
+}
+
+func (board ParkingDisplayBoard) GetEmptySpotNumbers() FloorFreeSpotCounts {
+
+	return FloorFreeSpotCounts{
+		Handicapped: FloorTotalHandicapped - board.TakenSpotCountByType[TypeHandicappedSpot],
+		Compact:     FloorTotalCompact - board.TakenSpotCountByType[TypeCompactSpot],
+		Large:       FloorTotalLarge - board.TakenSpotCountByType[TypeLargeSpot],
+		MotorBike:   FloorTotalMotorBike - board.TakenSpotCountByType[TypeMotorBikeSpot],
+		Electric:    FloorTotalElectric - board.TakenSpotCountByType[TypeElectricSpot],
+	}
+}
+
+func (board ParkingDisplayBoard) showEmptySpotNumbers() {
+
+	display := strings.Builder{}
+
+	freeHandicapped := FloorTotalHandicapped - board.TakenSpotCountByType[TypeHandicappedSpot]
+
+	if freeHandicapped > 0 {
+		display.WriteString(fmt.Sprintf("Free Handicapped: %d", freeHandicapped))
+	} else {
+		display.WriteString("Handicapped Full")
+	}
+
+	freeCompact := FloorTotalCompact - board.TakenSpotCountByType[TypeCompactSpot]
+
+	if freeCompact > 0 {
+		display.WriteString(fmt.Sprintf("Free Compact: %d", freeCompact))
+	} else {
+		display.WriteString("Compact Full")
+	}
+
+	freeLarge := FloorTotalLarge - board.TakenSpotCountByType[TypeLargeSpot]
+
+	if freeLarge > 0 {
+		display.WriteString(fmt.Sprintf("Free Large: %d", freeLarge))
+	} else {
+		display.WriteString("Large Full")
+	}
+
+	freeMotorBike := FloorTotalMotorBike - board.TakenSpotCountByType[TypeMotorBikeSpot]
+
+	if freeMotorBike > 0 {
+		display.WriteString(fmt.Sprintf("Free MotorBike: %d", freeMotorBike))
+	} else {
+		display.WriteString("MotorBike Full")
+	}
+
+	freeElectric := FloorTotalElectric - board.TakenSpotCountByType[TypeElectricSpot]
+
+	if freeElectric > 0 {
+		display.WriteString(fmt.Sprintf("Free Electric: %d", freeElectric))
+	} else {
+		display.WriteString("Electric Full")
+	}
+
+	log.Println(display.String())
+}
+
+/*
+ParkingLot: Our system will have only one object of this class. This can be enforced by using the Singleton pattern. In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to only one object.
+*/
+
+type ParkingLot struct {
+	Name         string
+	Address      Location
+	Rate         ParkingRate
+	MaxCompact   int
+	MaxLarge     int
+	MaxMotorBike int
+	MaxElectric  int
+
+	// refactor current and max counts
+
+	EntrancePanels map[string]EntrancePanel
+	ExitPanels     map[string]ExitPanel
+	ParkingFloors  map[string]ParkingFloor
+
+	ActiveTickets map[string]ParkingTicket
+}
+
+func NewParkingLot() ParkingLot {
+	return ParkingLot{
+		MaxHandicapped: TotalFloors * FloorTotalHandicapped,
+		MaxCompact:     TotalFloors * FloorTotalCompact,
+		MaxLarge:       TotalFloors * FloorTotalLarge,
+		MaxMotorBike:   TotalFloors * FloorTotalMotorBike,
+		MaxElectric:    TotalFloors * FloorTotalElectric,
+	}
+}
+
+func (lot ParkingLot) NewParkingTicket(vehicle VehicleManger) (Ticket, error) {
+	if lot.IsFullBy(vehicle.Type()) {
+		return nil, fmt.Errorf("Lot Full for type")
+	}
+	ticket := Ticket{}
+	vehicle.AssignTicket(ticket)
+	ticket.Save()
+
+	lot.IncrementSpotCount(vehicle.Type)
+	lot.ActiveTickets[ticket.Number()] = ticket
+	return ticket, nil
+}
+
+func (lot ParkingLot) IsFullBy(vehicleType int) bool {
+	totals := EmptySpotsTotals()
+	switch vehicleType {
+	case Car:
+		return (totals.Compact + totals.Large) >= (lot.MaxCompact + lot.MaxLarge)
+	case TRUCK:
+	case VAN:
+		return totals.Large >= lot.MaxLarge
+	case MOTORBIKE:
+		return totals.MotorBike >= lot.MaxMotorBike
+	case ELECTRIC:
+		return (totals.Compact + totals.Electric) >= (lot.Compact + lot.Electric)
+	default:
+		log.Printf("not a correct type %d\n", vehicleType)
+	}
+	return false
+}
+
+func (lot ParkingLot) EmptySpotsTotals() FloorFreeSpotCounts {
+
+	totals := FloorFreeSpotCounts{}
+	for _, floor := range lot.ParkingFloors {
+		floorCounts := floor.GetEmptySpotNumbers()
+		totals.Handicapped += floorCounts.Handicapped
+		totals.Compact += floorCounts.Compact
+		totals.Large += floorCounts.Large
+		totals.MotorBike += floorCounts.MotorBike
+		totals.Electric += floorCounts.Electric
+	}
+	return totals
+}
+func (lot ParkingLot) IncrementSpotCount(vehicleType int) {}
+
+type ParkingRate struct{}
+
+type Location struct{}
+
+type Ticket struct {
+	Number string
+}
+
+func (ticket Ticket) Save() {}
 
 type ParkingTicket struct{}
 
