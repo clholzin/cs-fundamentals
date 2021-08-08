@@ -6,26 +6,26 @@ import (
 
 func threeSum(nums []int) [][]int {
 	sort.Ints(nums)
-	res := make([][]int, 0)
-	for i := 0; i < len(nums) && nums[i] <= 0; i++ {
+	result := make([][]int, 0)
+	for i := 0; i < len(nums); i++ {
 		if i == 0 || nums[i-1] != nums[i] {
-			res = twoSum(nums, i, res)
+			result = twoSum(nums, i, result)
 		}
 	}
-	return res
+	return result
 }
 
-func twoSum(nums []int, i int, res [][]int) [][]int {
+func twoSum(nums []int, i int, result [][]int) [][]int {
 	seen := make(map[int]int)
 	for j := i + 1; j < len(nums); j++ {
 		complement := -nums[i] - nums[j]
 		if _, ok := seen[complement]; ok {
-			res = append(res, []int{nums[i], nums[j], complement})
-			for j+1 < len(nums) && nums[j] == nums[j+1] {
+			result = append(result, []int{nums[i], nums[j], complement})
+			for j < (len(nums)-1) && nums[j] == nums[j+1] {
 				j++
 			}
 		}
 		seen[nums[j]] = j
 	}
-	return res
+	return result
 }

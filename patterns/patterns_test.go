@@ -16,6 +16,24 @@ type Data struct {
 	ExpectArr []int
 }
 
+func TestMedianOfAStream(t *testing.T) {
+	moas := InitMedianOfAStream()
+	moas.insertNum(3)
+	moas.insertNum(1)
+	if moas.findMedian() != 2.0 {
+		t.Errorf("%f median not 2.0\n", moas.findMedian())
+	}
+	moas.insertNum(5)
+	if moas.findMedian() != 3.0 {
+		t.Errorf("%f median not 3.0\n", moas.findMedian())
+	}
+	moas.insertNum(4)
+	if moas.findMedian() != 3.5 {
+		t.Errorf("%f median not 3.5\n", moas.findMedian())
+	}
+
+}
+
 func TestFindSingleNumbers(t *testing.T) {
 	vals := []int{2, 3, 2, 4, 5, 4, 6, 6}
 	fmt.Println(patternFindSingleNumbers(vals))
@@ -194,8 +212,7 @@ func TestFindKthSmallestNumberFast(t *testing.T) {
 	for i := 0; i < len(table); i++ {
 		result := findKthSmallestNumberFast(table[i].Value, table[i].Kth)
 		if result != table[i].Expect {
-			t.Log(result, table[i].Expect)
-			t.Fail()
+			t.Errorf("failed: %d expect: %d", result, table[i].Expect)
 		}
 	}
 }
@@ -223,8 +240,7 @@ func TestFindKthSmallestNumberHeap(t *testing.T) {
 	for i := 0; i < len(table); i++ {
 		result := findKthSmallestNumberHeap(table[i].Value, table[i].Kth)
 		if result != table[i].Expect {
-			t.Log(result, table[i].Expect)
-			t.Fail()
+			t.Errorf("failed: %d expect: %d", result, table[i].Expect)
 		}
 	}
 }

@@ -280,6 +280,95 @@ func patternTreePathSum(root *TreeNode, sum int) bool {
 }
 
 /*
+Pattern Two Heaps
+*/
+/*
+Find the Median of a Number Stream (medium)
+*/
+type MedianOfAStream struct {
+	min *MinInts
+	max *MaxInts
+}
+
+func InitMedianOfAStream() MedianOfAStream {
+	min := &MinInts{}
+	heap.Init(min)
+	max := &MaxInts{}
+	heap.Init(max)
+	return MedianOfAStream{
+		min: min,
+		max: max,
+	}
+}
+
+func (m MedianOfAStream) insertNum(num int) {
+	if m.max.Len() == 0 || m.max.Peak().(int) >= num {
+		heap.Push(m.max, num)
+	} else {
+		heap.Push(m.min, num)
+	}
+
+	if m.max.Len() > m.min.Len()+1 {
+		heap.Push(m.min, heap.Pop(m.max))
+	} else if m.max.Len() < m.min.Len() {
+		heap.Push(m.max, heap.Pop(m.min))
+	}
+}
+
+func (m MedianOfAStream) findMedian() float64 {
+	if m.min.Len() == m.max.Len() {
+		return (float64(m.max.Peak().(int)) / 2.0) + (float64(m.min.Peak().(int)) / 2)
+	}
+	return float64(m.max.Peak().(int))
+}
+
+type MaxInts []int
+type MinInts []int
+
+func (max MaxInts) Len() int           { return len(max) }
+func (max MaxInts) Less(i, j int) bool { return i > j }
+func (max MaxInts) Swap(i, j int)      { max[i], max[j] = max[j], max[i] }
+func (max *MaxInts) Pop() interface{} {
+	tmp := *max
+	l1 := len(tmp)
+	val := tmp[l1-1]
+	*max = tmp[:l1-1]
+	return val
+}
+func (max *MaxInts) Push(num interface{}) {
+	*max = append(*max, num.(int))
+}
+
+func (max MaxInts) Peak() interface{} {
+	if len(max) == 0 {
+		return 0
+	}
+	return max[len(max)-1]
+}
+
+func (min MinInts) Len() int           { return len(min) }
+func (min MinInts) Less(i, j int) bool { return i < j }
+func (min MinInts) Swap(i, j int)      { min[i], min[j] = min[j], min[i] }
+func (min *MinInts) Pop() interface{} {
+	tmp := *min
+	l1 := len(tmp)
+	val := tmp[l1-1]
+	*min = tmp[:l1-1]
+	return val
+}
+
+func (max *MinInts) Push(num interface{}) {
+	*max = append(*max, num.(int))
+}
+
+func (min MinInts) Peak() interface{} {
+	if len(min) == 0 {
+		return 0
+	}
+	return min[len(min)-1]
+}
+
+/*
 Pattern Subsets
 */
 
