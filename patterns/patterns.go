@@ -1,4 +1,4 @@
-package fundamentals
+package patterns
 
 import (
 	"container/heap"

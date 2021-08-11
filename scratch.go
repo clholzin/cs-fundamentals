@@ -11,27 +11,26 @@ package fundamentals
 
 */
 
-func mergeSortPractice(data []int) []int {
-	if len(data) <= 1 {
-		return data
+func pcMergeSort(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
 	}
 
-	mid := len(data) / 2
-	left := data[:mid]
-	right := data[mid:]
+	mid := len(arr) / 2
+	leftArr := arr[:mid]
+	rightArr := arr[mid:]
 
-	return mergePractice(mergeSortPractice(left), mergeSortPractice(right))
+	return pcMerge(pcMergeSort(leftArr), pcMergeSort(rightArr))
 }
 
-func mergePractice(l1, l2 []int) []int {
-
+func pcMerge(l1, l2 []int) []int {
 	l1len := len(l1)
 	l2len := len(l2)
-	n := l1len + l2len
-	result := make([]int, n)
+	result := make([]int, l1len+l2len)
 	i := 0
+
 	for len(l1) > 0 && len(l2) > 0 {
-		if l1[0] < l2[0] {
+		if l1[0] <= l2[0] {
 			result[i] = l1[0]
 			l1 = l1[1:]
 		} else {

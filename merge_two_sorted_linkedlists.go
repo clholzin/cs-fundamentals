@@ -3,21 +3,21 @@ package fundamentals
 /**
  * https://leetcode.com/explore/interview/card/facebook/6/linked-list/301/
  * Definition for singly-linked list.
- * type ListNode struct {
+ * type ListNodeMerge struct {
  *     Val int
- *     Next *ListNode
+ *     Next *ListNodeMerge
  * }
  */
 
-type ListNode struct {
+type ListNodeMerge struct {
 	Val  int
-	Next *ListNode
+	Next *ListNodeMerge
 }
 
-func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
-	temp := &ListNode{}
+func mergeTwoLists(l1 *ListNodeMerge, l2 *ListNodeMerge) *ListNodeMerge {
+	temp := &ListNodeMerge{}
 	if l1 == nil && l2 == nil {
-		var tp *ListNode
+		var tp *ListNodeMerge
 		return tp
 	}
 	var l1val, l2val int
@@ -42,13 +42,13 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	return temp
 }
 
-func GetNextVal(sorted *ListNode, l1, l2 *ListNode) {
-	var temp *ListNode
+func GetNextVal(sorted *ListNodeMerge, l1, l2 *ListNodeMerge) {
+	var temp *ListNodeMerge
 	if l1 == nil && l2 == nil {
 		return
 	}
 	if sorted != nil && sorted.Next == nil {
-		sorted.Next = &ListNode{}
+		sorted.Next = &ListNodeMerge{}
 		temp = sorted.Next
 	}
 	if l1 != nil && l2 == nil {
