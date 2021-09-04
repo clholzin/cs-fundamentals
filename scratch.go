@@ -1,5 +1,88 @@
 package fundamentals
 
+import (
+	"strings"
+)
+
+func reverse(head *ListNode) *ListNode {
+	tmp := head
+	for tmp != nil {
+		t := head.next
+	}
+}
+func CapPerms(val string) []string {
+
+	perms := make([]string, 0)
+	if len(val) == 0 {
+		return perms
+	}
+
+	perms = append(perms, val)
+
+	for i := 0; i < len(val); i++ {
+		queLen := len(perms)
+		for q := 0; q < queLen; q++ {
+			perm := []byte(perms[q])
+			if perm[i] >= byte('A') {
+				if perm[i] < byte('a') {
+					char := perm[i]
+					charStr := strings.ToLower(string(char))
+					perm[i] = []byte(charStr)[0]
+					perms[q] = string(perm)
+				} else {
+					char := perm[i]
+					charStr := strings.ToUpper(string(char))
+					perm[i] = []byte(charStr)[0]
+					perms = append(perms, string(perm))
+				}
+			}
+		}
+	}
+	return perms
+}
+
+func missingNumber(nums []int) int {
+	if len(nums) == 0 {
+		return -1
+	}
+
+	missing := 0
+	for _, num := range nums {
+		missing = missing ^ num
+	}
+	return missing
+}
+
+func knapsack(weights, profits []int, capacity int) int {
+	if capacity <= 0 || len(weights) == 0 || len(weights) != len(profits) {
+		return 0
+	}
+
+	dp := make([]int, capacity+1)
+
+	for i := 0; i < capacity; i++ {
+		if weights[0] <= i {
+			dp[i] = profits[0]
+		}
+	}
+
+	for i := 1; i < len(profits); i++ {
+		for c := capacity; c >= 0; c-- {
+
+			p1, p2 := 0, 0
+			if weights[i] <= c {
+				p1 = profits[i] + dp[c-weights[i]]
+			}
+
+			p2 = dp[c]
+			dp[c] = max(p1, p2)
+
+		}
+
+	}
+	return dp[capacity]
+}
+
 /*
 [1,2,3,4,5]
 [[1,2,3,4,5],[1,2,3,4],[1,2,3],[1],[4],[5]]
