@@ -1,0 +1,12 @@
+FROM golang:1.16
+WORKDIR /go/src/cs-fundamentals/dockerfiles
+COPY main.go ./
+COPY go.mod ./
+RUN  go mod tidy
+RUN CGO_ENABLE=0 GOOS=linux go build -a -o app main.go
+
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=0 /go/src/cs-fundamentals/dockerfiles/app ./
+CMD ["./app"]
