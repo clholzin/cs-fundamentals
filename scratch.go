@@ -1,15 +1,63 @@
-package fundamentals
+package main
 
 import (
+	"fmt"
 	"strings"
 )
 
+func main() {
+	fmt.Println(dutchFlag([]int{1, 0, 2, 1, 0}))
+}
+
+func dutchFlag(nums []int) []int {
+	start, high := 0, len(nums)-1
+	for i := 0; i < len(nums)-1; {
+		cur := nums[i]
+		if cur == 0 {
+			swap(nums, i, start)
+			i++
+			start++
+		} else if cur == 1 {
+			i++
+		} else {
+			swap(nums, i, high)
+			high--
+		}
+	}
+
+	return nums
+}
+
+func swap(nums []int, i, j int) {
+	tmp := nums[i]
+	nums[i] = nums[j]
+	nums[j] = tmp
+}
+
+func longestNoRepleating(str string) int {
+	windowStart, maxLength := 0, 0
+
+	mem := make(map[byte]int)
+
+	for windowEnd := 0; windowEnd < len(str); windowEnd++ {
+		curr := str[windowEnd]
+		if _, ok := mem[curr]; ok {
+			windowStart = max(windowStart, mem[curr]+1)
+		}
+		mem[curr] = windowEnd
+		maxLength = max(maxLength, windowEnd-windowStart+1)
+	}
+	return maxLength
+}
+
+/*
 func reverse(head *ListNode) *ListNode {
 	tmp := head
 	for tmp != nil {
 		t := head.next
 	}
-}
+}*/
+
 func CapPerms(val string) []string {
 
 	perms := make([]string, 0)
@@ -132,6 +180,13 @@ func pcMerge(l1, l2 []int) []int {
 		i++
 	}
 	return result
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 /*

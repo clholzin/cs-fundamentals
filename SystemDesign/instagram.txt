@@ -1,0 +1,120 @@
+
+
+Instagram
+
+functional Req
+
+create content - photos and text and meta data
+follow user - 
+get feed /- updates from users you follow - photos - text
+
+none functional 
+
+highly available - never drop anything
+availability over consistency 
+read your own writes - mutliple device views are consistent]
+
+
+spike requests - auto scaling
+do we handle auth - session mession managmenet
+multiple languages - localization
+system logs - telemitry - user location, device data, health
+frontend or backend scope
+
+* content creation - 
+  photo storage - text / meta
+* ability to follow users - receive updats from 
+  * notifications - not in scope
+* GET portion of the FEED in scope - build this
+* backend focus
+
+
+table of contents - order - 
+* APIs
+* HW requirements / estimation
+* Data schema
+* Service architecture
+* points of failure
+
+
+Api
+
+REst or soap, --
+POST - createPost({
+  userId
+  ImageData []files
+  Message string
+  longitude 
+  latitude
+}) error
+- header auth token
+
+POST - followUser({
+  userId
+  followerId
+}) error
+
+GET - feed({
+  userId
+  lastFeedTimestamp
+}) error
+
+
+HW req - 
+
+
+Data Model
+
+Users {
+  userId 5 byte
+  firstName 50 byte
+  lastName  50 byte
+  longitude 8 byte
+  latitude  8 byte
+  email     50 byte
+  followers []userId - what is the max for nested arrays - 
+}
+
+PostData {
+  userId 5 byte
+  postId 8 byte
+  media []MediaIds 
+  message 500 byte
+}
+
+MediaMetaData {
+  mediaIds 8 byte
+  postId   8 byte
+  longitude 8 byte
+  latitude  8 byte
+  storagelocation  36 * 2 = 74 bytes - 2 layer deep
+   -- users bin
+     -- post bin
+       -- files
+}
+
+followers {
+  userId
+  followers []userId
+}
+
+User A - creates post
+  followers user B, C, D
+  
+
+how to generate the feed
+
+- post model
+- push model - more efficient
+ - inserts the post for all the followers feed model - 
+ - pre-generated
+
+hot users
+- posts in cache
+- 80 / 20 rule
+
+
+
+
+
+

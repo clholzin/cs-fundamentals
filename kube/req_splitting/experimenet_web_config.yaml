@@ -1,0 +1,33 @@
+# This is the 'experiment' service
+apiVersion: v1
+kind: Service
+metadata:
+  name: experiment
+  labels:
+    app: experiment
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: experiment
+  selector:
+    # Change this selector to match your application's labels
+    app: dictionary-server
+---
+# This is the 'prod' service
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  labels:
+    app: web
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: web
+  selector:
+    # Change this selector to match your application's labels
+    app: echoserver2
