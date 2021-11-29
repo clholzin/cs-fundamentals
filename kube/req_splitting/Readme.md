@@ -11,6 +11,7 @@ kubectl create -f experimenet_web_config.yaml
 kubectl create -f ambassador_pod.yaml
 
 kubectl expose pod ambassador --type=LoadBalancer --name=ambassador-service
+kubectl describe pod ambassador
 
 
 https://gist.github.com/chukaofili/d0a6713734d0953ce1ce667958464edb
