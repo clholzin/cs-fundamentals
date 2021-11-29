@@ -14,5 +14,18 @@ kubectl expose pod ambassador --type=LoadBalancer --name=ambassador-service
 kubectl describe pod ambassador
 
 
+## links
+
+- https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
+- https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+- https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource
+- https://minikube.sigs.k8s.io/docs/tutorials/ambassador_ingress_controller/
+- https://github.com/twitter/twemproxy
+- https://raw.githubusercontent.com/adambom/dictionary/master/dictionary.json
+- http://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream
+
+
+
+
 https://gist.github.com/chukaofili/d0a6713734d0953ce1ce667958464edb
 
