@@ -10,7 +10,16 @@ kubectl create -f echo_server_2.yaml
 kubectl create -f experimenet_web_config.yaml
 kubectl create -f ambassador_pod.yaml
 
+kubectl create -f ambassador_srvc.yaml
+kubectl create -f ingress_nginx_2.yaml
+
+minikube addons enable ingress
+minikube tunnel
+
+-  curl http://localhost/WATER VIOLET
+
 kubectl expose pod ambassador --type=LoadBalancer --name=ambassador-service
+
 kubectl describe pod ambassador
 
 

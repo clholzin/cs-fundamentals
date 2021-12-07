@@ -1,0 +1,10 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: ambassador-splitter 
+spec:
+  host: ambassador.splitter.com
+  upstreams:
+  - name: ambassador-ingress
+    service: ambassador-srvc
+    port: 8082
