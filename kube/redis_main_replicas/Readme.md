@@ -1,5 +1,15 @@
 
 
+## Run
+
+```
+go run receiver/main.go -password=$REDIS_PASSWORD
+```
+
+```
+go run sender/main.go -input=foo,bar -password=$REDIS_PASSWORD
+```
+
 ## Helm Chart
 
 https://github.com/bitnami/charts/tree/master/bitnami/redis
@@ -53,5 +63,8 @@ To connect to your database from outside the cluster execute the following comma
 
     kubectl port-forward --namespace default svc/my-release-redis-master 6379:6379 &
     REDISCLI_AUTH="$REDIS_PASSWORD" redis-cli -h 127.0.0.1 -p 6379
+
+
+kubectl create -f redis_ingress.yaml
 ```
 
